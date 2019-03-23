@@ -42,13 +42,26 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(TasksAdapter.ViewHolder viewHolder, int i) {
-        Task task = tasks.get(i);
+        if (tasks != null) {
+            Task task = tasks.get(i);
+            viewHolder.taskText.setText(task.task);
+        } else {
+            viewHolder.taskText.setText("No tasks yet");
+        }
 
-        viewHolder.taskText.setText(task.task);
+    }
+
+    void setTasks(List<Task> words){
+        tasks = words;
+        notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return tasks.size();
+        if (tasks != null) {
+            return tasks.size();
+        } else {
+            return 0;
+        }
     }
 }

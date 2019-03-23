@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textView2"
         android:ems="10"
-        android:hint="Goal"
+        android:hint="Task"
         android:layout_marginHorizontal="50dp"
         android:inputType="text" />
 
@@ -29,6 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/taskText"
         android:layout_marginHorizontal="50dp"
+        android:onClick="addTask"
         android:text="Add" />
 
     <View
