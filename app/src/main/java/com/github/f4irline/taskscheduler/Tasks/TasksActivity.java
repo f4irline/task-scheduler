@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.github.f4irline.taskscheduler.BaseActivity;
 import com.github.f4irline.taskscheduler.Goals.Goal;
 import com.github.f4irline.taskscheduler.Goals.GoalViewModel;
 import com.github.f4irline.taskscheduler.Goals.GoalsAdapter;
@@ -23,14 +24,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
-public class TasksActivity extends AppCompatActivity {
+public class TasksActivity extends BaseActivity {
+
+    public static boolean tasksActive = false;
 
     List<Task> tasks;
     private TaskViewModel taskViewModel;
     public static final int NEW_TASK_ACTIVITY_REQUEST_CODE = 1;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tasks);
 
@@ -48,6 +51,7 @@ public class TasksActivity extends AppCompatActivity {
                 tasksAdapter.setTasks(words);
             }
         });
+        tasksActive = true;
     }
 
     public void onTaskAdd(int requestCode, int resultCode, Intent data) {

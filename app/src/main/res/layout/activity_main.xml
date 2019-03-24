@@ -19,25 +19,6 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp"
             />
-
-        <Button
-            android:id="@+id/tasksNav"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/dashboardText"
-            android:layout_centerHorizontal="true"
-            android:onClick="navClicked"
-            android:text="Tasks" />
-
-        <Button
-            android:id="@+id/goalsNav"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tasksNav"
-            android:layout_centerHorizontal="true"
-            android:onClick="navClicked"
-            android:text="Goals" />
-
     </RelativeLayout>
 
 <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.github.f4irline.taskscheduler.BaseActivity;
 import com.github.f4irline.taskscheduler.R;
 
 import java.io.FileInputStream;
@@ -21,14 +22,16 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class GoalsActivity extends AppCompatActivity {
+public class GoalsActivity extends BaseActivity {
+
+    public static boolean goalsActive = false;
 
     List<Goal> goals;
     private GoalViewModel goalViewModel;
     public static final int NEW_GOAL_ACTIVITY_REQUEST_CODE = 1;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goals);
 
@@ -47,6 +50,7 @@ public class GoalsActivity extends AppCompatActivity {
                 goalsAdapter.setGoals(words);
             }
         });
+        goalsActive = true;
     }
 
     public void onGoalAdd(int requestCode, int resultCode, Intent data) {
