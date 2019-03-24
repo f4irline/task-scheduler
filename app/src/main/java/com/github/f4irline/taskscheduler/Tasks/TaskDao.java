@@ -1,7 +1,5 @@
 package com.github.f4irline.taskscheduler.Tasks;
 
-import com.github.f4irline.taskscheduler.Goals.Goal;
-
 import java.util.List;
 
 import androidx.lifecycle.LiveData;

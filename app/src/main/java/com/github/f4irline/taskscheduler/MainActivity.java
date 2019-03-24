@@ -1,17 +1,16 @@
 package com.github.f4irline.taskscheduler;
 
 import android.content.Intent;
-import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
 import com.github.f4irline.taskscheduler.Goals.GoalsActivity;
 import com.github.f4irline.taskscheduler.Tasks.TasksActivity;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }

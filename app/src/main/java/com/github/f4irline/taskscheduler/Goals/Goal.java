@@ -1,7 +1,10 @@
 package com.github.f4irline.taskscheduler.Goals;
 
+import com.github.f4irline.taskscheduler.Tasks.Task;
+
 import java.io.Serializable;
 
+import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -14,19 +17,27 @@ public class Goal implements Serializable {
     @ColumnInfo(name = "goal")
     public String goal;
 
-    @ColumnInfo(name = "time")
-    public float time;
+    @ColumnInfo(name = "goal_time")
+    public float goalTime;
 
-    public Goal(String goal, float time) {
+    @ColumnInfo(name = "goal_done")
+    public float goalDone;
+
+    public Goal(String goal, float goalTime) {
         this.goal = goal;
-        this.time = time;
+        this.goalTime = goalTime;
+        this.goalDone = 0;
     }
 
     public String getGoal() {
         return this.goal;
     }
 
-    public float getTime() {
-        return this.time;
+    public int getGoalId() { return this.goalId; }
+
+    public float getGoalTime() {
+        return this.goalTime;
     }
+
+    public float getGoalDone() { return this.goalDone; }
 }

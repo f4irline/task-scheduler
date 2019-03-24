@@ -53,7 +53,7 @@ public class GoalsAdapter extends RecyclerView.Adapter<GoalsAdapter.ViewHolder> 
         if (goals != null) {
             final Goal goal = goals.get(i);
             viewHolder.goalText.setText(goal.goal);
-            viewHolder.timeText.setText(String.valueOf(goal.time));
+            viewHolder.timeText.setText(String.valueOf(goal.goalTime));
             viewHolder.removeButton.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View v) {
