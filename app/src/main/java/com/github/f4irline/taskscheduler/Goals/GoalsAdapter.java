@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.github.f4irline.taskscheduler.R;
@@ -18,18 +19,23 @@ public class GoalsAdapter extends RecyclerView.Adapter<GoalsAdapter.ViewHolder> 
 
         public TextView goalText;
         public TextView timeText;
+        public ImageButton removeButton;
 
         public ViewHolder(View itemView) {
             super(itemView);
             goalText = (TextView) itemView.findViewById(R.id.goal_name);
             timeText = (TextView) itemView.findViewById(R.id.goal_time);
+            removeButton = (ImageButton) itemView.findViewById(R.id.remove_goal);
+
         }
     }
 
     private List<Goal> goals;
+    private GoalViewModel goalViewModel;
 
-    public GoalsAdapter(List<Goal> goals) {
+    public GoalsAdapter(List<Goal> goals, GoalViewModel goalViewModel) {
         this.goals = goals;
+        this.goalViewModel = goalViewModel;
     }
 
     @Override
@@ -45,9 +51,15 @@ public class GoalsAdapter extends RecyclerView.Adapter<GoalsAdapter.ViewHolder> 
     @Override
     public void onBindViewHolder(GoalsAdapter.ViewHolder viewHolder, int i) {
         if (goals != null) {
-            Goal goal = goals.get(i);
+            final Goal goal = goals.get(i);
             viewHolder.goalText.setText(goal.goal);
             viewHolder.timeText.setText(String.valueOf(goal.time));
+            viewHolder.removeButton.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                   goalViewModel.delete(goal);
+               }
+            });
         } else {
             viewHolder.goalText.setText("No goals yet");
             viewHolder.timeText.setText("");

@@ -13,13 +13,13 @@ import java.util.List;
 import androidx.lifecycle.LiveData;
 
 public class TaskRepository {
-    private TaskDao mGoalDao;
+    private TaskDao mTaskDao;
     private LiveData<List<Task>> allTasks;
 
     TaskRepository(Application application) {
         TaskDatabase db = TaskDatabase.getDatabase(application);
-        mGoalDao = db.taskDao();
-        allTasks = mGoalDao.getAllTasks();
+        mTaskDao = db.taskDao();
+        allTasks = mTaskDao.getAllTasks();
     }
 
     LiveData<List<Task>> getAllTasks() {
@@ -27,7 +27,21 @@ public class TaskRepository {
     }
 
     public void insert (Task word) {
-        new TaskRepository.insertAsyncTask(mGoalDao).execute(word);
+        new TaskRepository.insertAsyncTask(mTaskDao).execute(word);
+    }
+
+    public void delete (Task task) { new TaskRepository.deleteAsyncTask(mTaskDao).execute(task); }
+
+    private static class deleteAsyncTask extends AsyncTask<Task, Void, Void> {
+        private TaskDao mAsyncTaskDao;
+
+        deleteAsyncTask(TaskDao dao) { mAsyncTaskDao = dao; }
+
+        @Override
+        protected Void doInBackground(final Task... params) {
+            mAsyncTaskDao.delete(params[0]);
+            return null;
+        }
     }
 
     private static class insertAsyncTask extends AsyncTask<Task, Void, Void> {

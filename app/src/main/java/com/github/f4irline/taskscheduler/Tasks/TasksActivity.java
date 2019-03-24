@@ -21,6 +21,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.room.Room;
 
 public class TasksActivity extends AppCompatActivity {
 
@@ -36,10 +37,11 @@ public class TasksActivity extends AppCompatActivity {
         RecyclerView tasksList = (RecyclerView) findViewById(R.id.task_list);
         tasksList.setLayoutManager(new LinearLayoutManager(this));
 
-        final TasksAdapter tasksAdapter = new TasksAdapter(tasks);
+        taskViewModel = ViewModelProviders.of(this).get(TaskViewModel.class);
+
+        final TasksAdapter tasksAdapter = new TasksAdapter(tasks, taskViewModel);
         tasksList.setAdapter(tasksAdapter);
 
-        taskViewModel = ViewModelProviders.of(this).get(TaskViewModel.class);
         taskViewModel.getAllTasks().observe(this, new Observer<List<Task>>() {
             @Override
             public void onChanged(@Nullable final List<Task> words) {

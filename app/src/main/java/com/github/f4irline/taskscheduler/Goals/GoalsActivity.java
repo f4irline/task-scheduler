@@ -35,10 +35,11 @@ public class GoalsActivity extends AppCompatActivity {
         RecyclerView goalsList = (RecyclerView) findViewById(R.id.goal_list);
         goalsList.setLayoutManager(new LinearLayoutManager(this));
 
-        final GoalsAdapter goalsAdapter = new GoalsAdapter(goals);
+        goalViewModel = ViewModelProviders.of(this).get(GoalViewModel.class);
+
+        final GoalsAdapter goalsAdapter = new GoalsAdapter(goals, goalViewModel);
         goalsList.setAdapter(goalsAdapter);
 
-        goalViewModel = ViewModelProviders.of(this).get(GoalViewModel.class);
         goalViewModel.getAllGoals().observe(this, new Observer<List<Goal>>() {
             @Override
             public void onChanged(@Nullable final List<Goal> words) {

@@ -25,8 +25,22 @@ public class GoalRepository {
         return allGoals;
     }
 
-    public void insert (Goal word) {
-        new insertAsyncTask(mGoalDao).execute(word);
+    public void insert (Goal goal) {
+        new insertAsyncTask(mGoalDao).execute(goal);
+    }
+
+    public void delete (Goal goal) { new deleteAsyncTask(mGoalDao).execute(goal); }
+
+    private static class deleteAsyncTask extends AsyncTask<Goal, Void, Void> {
+        private GoalDao mAsyncTaskDao;
+
+        deleteAsyncTask(GoalDao dao) { mAsyncTaskDao = dao; }
+
+        @Override
+        protected Void doInBackground(final Goal... params) {
+            mAsyncTaskDao.delete(params[0]);
+            return null;
+        }
     }
 
     private static class insertAsyncTask extends AsyncTask<Goal, Void, Void> {
