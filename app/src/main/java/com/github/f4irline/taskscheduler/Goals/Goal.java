@@ -40,4 +40,8 @@ public class Goal implements Serializable {
     }
 
     public float getGoalDone() { return this.goalDone; }
+
+    public void setGoalDone(float goalDone) {
+        this.goalDone = goalDone;
+    }
 }

@@ -4,12 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.FrameLayout;
 
 import com.github.f4irline.taskscheduler.Goals.GoalsActivity;
 import com.github.f4irline.taskscheduler.Tasks.TasksActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -24,7 +27,9 @@ public class BaseActivity extends AppCompatActivity {
     public DrawerLayout drawerLayout;
     public ActionBarDrawerToggle drawerToggle;
     public NavigationView navigationView;
+    public FloatingActionButton floatingActionButton;
     public Context mContext;
+
     public NavigationView getNavigationView() {
         return navigationView;
     }
@@ -44,6 +49,14 @@ public class BaseActivity extends AppCompatActivity {
         super.setContentView(drawerLayout);
 
         initToolbar();
+
+        floatingActionButton = drawerLayout.findViewById(R.id.floating_action_button);
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("setContentView()", "Clicked floating button");
+            }
+        });
     }
 
     private void initToolbar() {
@@ -62,25 +75,17 @@ public class BaseActivity extends AppCompatActivity {
 
         navigationView = (NavigationView) findViewById(R.id.nav_view);
 
-
-        // Setting Navigation View Item Selected Listener to handle the item
-        // click of the navigation menu
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
             public boolean onNavigationItemSelected(MenuItem menuItem) {
-
-                // Checking if the item is in checked state or not, if not make
-                // it in checked state
-                if (menuItem.isChecked())
+                if (menuItem.isChecked()) {
                     menuItem.setChecked(false);
-                else
+                }
+                else {
                     menuItem.setChecked(true);
+                }
 
-                // Closing drawer on item click
                 drawerLayout.closeDrawers();
-
-                // Check to see which item was being clicked and perform
-                // appropriate action
 
                 switch (menuItem.getItemId()) {
                     case R.id.nav_dash:
@@ -115,12 +120,7 @@ public class BaseActivity extends AppCompatActivity {
             }
         });
 
-        // Setting the actionbarToggle to drawer layout
-
-        // calling sync state is necessay or else your hamburger icon wont show
-        // up
         drawerToggle.syncState();
-
     }
 
     @Override
@@ -138,14 +138,14 @@ public class BaseActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (drawerToggle.onOptionsItemSelected(item))
+        if (drawerToggle.onOptionsItemSelected(item)) {
             return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 }

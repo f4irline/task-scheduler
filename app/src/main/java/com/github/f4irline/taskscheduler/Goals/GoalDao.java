@@ -7,6 +7,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 @Dao
 public interface GoalDao {
@@ -22,4 +23,7 @@ public interface GoalDao {
 
     @Delete
     void delete(Goal goal);
+
+    @Query("UPDATE goal_table SET goal_done = goal_done + :goal_done WHERE goalId = :gId")
+    int updateGoal(int gId, float goal_done);
 }
