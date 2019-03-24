@@ -15,6 +15,7 @@ import androidx.lifecycle.LiveData;
 public class AppViewModel extends AndroidViewModel {
     private TaskRepository taskRepository;
     private LiveData<List<Task>> allTasks;
+
     private GoalRepository goalRepository;
     private LiveData<List<Goal>> allGoals;
 
@@ -37,4 +38,8 @@ public class AppViewModel extends AndroidViewModel {
     public void insert(Goal goal) { goalRepository.insert(goal); }
 
     public void delete(Goal goal) { goalRepository.delete(goal); }
+
+    public void update(int gId, float goalDone) {
+        goalRepository.update(gId, goalDone);
+    }
 }

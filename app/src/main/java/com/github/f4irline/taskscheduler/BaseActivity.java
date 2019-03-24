@@ -19,6 +19,7 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.ViewModelProviders;
 
 public class BaseActivity extends AppCompatActivity {
 
@@ -30,6 +31,8 @@ public class BaseActivity extends AppCompatActivity {
     public FloatingActionButton floatingActionButton;
     public Context mContext;
 
+    protected AppViewModel viewModel;
+
     public NavigationView getNavigationView() {
         return navigationView;
     }
@@ -39,6 +42,8 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mContext = BaseActivity.this;
         setContentView(R.layout.activity_base);
+
+        viewModel = ViewModelProviders.of(this).get(AppViewModel.class);
     }
 
     @Override
@@ -54,7 +59,7 @@ public class BaseActivity extends AppCompatActivity {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("setContentView()", "Clicked floating button");
+                viewModel.update(1, 30);
             }
         });
     }

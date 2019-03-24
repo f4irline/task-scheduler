@@ -6,17 +6,22 @@ import android.os.AsyncTask;
 import com.github.f4irline.taskscheduler.DatabaseImpl;
 
 import java.util.List;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import androidx.lifecycle.LiveData;
 
 public class GoalRepository {
     private GoalDao mGoalDao;
     private LiveData<List<Goal>> allGoals;
+    private ExecutorService executor;
 
     public GoalRepository(Application application) {
         DatabaseImpl db = DatabaseImpl.getGoalDatabase(application);
         mGoalDao = db.goalDao();
         allGoals = mGoalDao.getAllGoals();
+        executor = Executors.newSingleThreadExecutor();
     }
 
     public LiveData<List<Goal>> getAllGoals() {
@@ -28,6 +33,12 @@ public class GoalRepository {
     }
 
     public void delete (Goal goal) { new deleteAsyncTask(mGoalDao).execute(goal); }
+
+    public void update (int gId, float goalDone) {
+        executor.execute(() -> {
+            mGoalDao.updateGoal(gId, goalDone);
+        });
+    }
 
     private static class deleteAsyncTask extends AsyncTask<Goal, Void, Void> {
         private GoalDao mAsyncTaskDao;

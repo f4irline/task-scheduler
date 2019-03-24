@@ -21,9 +21,12 @@ public interface GoalDao {
     @Query("DELETE FROM goal_table")
     void deleteAll();
 
+    @Query("SELECT goal_done FROM goal_table WHERE goalId = :gId")
+    float getGoalDone(int gId);
+
     @Delete
     void delete(Goal goal);
 
-    @Query("UPDATE goal_table SET goal_done = goal_done + :goal_done WHERE goalId = :gId")
-    int updateGoal(int gId, float goal_done);
+    @Query("UPDATE goal_table SET goal_done = goal_done + :goalDone WHERE goalId = :gId")
+    int updateGoal(int gId, float goalDone);
 }

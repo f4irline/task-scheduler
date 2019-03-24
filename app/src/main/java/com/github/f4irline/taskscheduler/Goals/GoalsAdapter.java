@@ -20,12 +20,14 @@ public class GoalsAdapter extends RecyclerView.Adapter<GoalsAdapter.ViewHolder> 
 
         public TextView goalText;
         public TextView timeText;
+        public TextView goalDone;
         public ImageButton removeButton;
 
         public ViewHolder(View itemView) {
             super(itemView);
             goalText = (TextView) itemView.findViewById(R.id.goal_name);
             timeText = (TextView) itemView.findViewById(R.id.goal_time);
+            goalDone = (TextView) itemView.findViewById(R.id.goal_done);
             removeButton = (ImageButton) itemView.findViewById(R.id.remove_goal);
 
         }
@@ -55,6 +57,7 @@ public class GoalsAdapter extends RecyclerView.Adapter<GoalsAdapter.ViewHolder> 
             final Goal goal = goals.get(i);
             viewHolder.goalText.setText(goal.goal);
             viewHolder.timeText.setText(String.valueOf(goal.goalTime));
+            viewHolder.goalDone.setText(String.valueOf(goal.goalDone));
             viewHolder.removeButton.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View v) {

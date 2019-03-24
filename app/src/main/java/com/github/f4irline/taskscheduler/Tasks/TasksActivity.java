@@ -24,7 +24,6 @@ public class TasksActivity extends BaseActivity {
     public static boolean tasksActive = false;
 
     List<Task> tasks;
-    private AppViewModel viewModel;
     public static final int NEW_TASK_ACTIVITY_REQUEST_CODE = 1;
 
     @Override
@@ -34,8 +33,6 @@ public class TasksActivity extends BaseActivity {
 
         RecyclerView tasksList = (RecyclerView) findViewById(R.id.task_list);
         tasksList.setLayoutManager(new LinearLayoutManager(this));
-
-        viewModel = ViewModelProviders.of(this).get(AppViewModel.class);
 
         final TasksAdapter tasksAdapter = new TasksAdapter(tasks, viewModel);
         tasksList.setAdapter(tasksAdapter);

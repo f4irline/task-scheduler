@@ -28,7 +28,6 @@ public class GoalsActivity extends BaseActivity {
     public static boolean goalsActive = false;
 
     List<Goal> goals;
-    private AppViewModel viewModel;
     public static final int NEW_GOAL_ACTIVITY_REQUEST_CODE = 1;
 
     @Override
@@ -38,8 +37,6 @@ public class GoalsActivity extends BaseActivity {
 
         RecyclerView goalsList = (RecyclerView) findViewById(R.id.goal_list);
         goalsList.setLayoutManager(new LinearLayoutManager(this));
-
-        viewModel = ViewModelProviders.of(this).get(AppViewModel.class);
 
         final GoalsAdapter goalsAdapter = new GoalsAdapter(goals, viewModel);
         goalsList.setAdapter(goalsAdapter);
