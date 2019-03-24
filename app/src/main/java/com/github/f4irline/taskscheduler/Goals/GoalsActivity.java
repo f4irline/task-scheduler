@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.github.f4irline.taskscheduler.AppViewModel;
 import com.github.f4irline.taskscheduler.BaseActivity;
 import com.github.f4irline.taskscheduler.R;
 
@@ -27,7 +28,7 @@ public class GoalsActivity extends BaseActivity {
     public static boolean goalsActive = false;
 
     List<Goal> goals;
-    private GoalViewModel goalViewModel;
+    private AppViewModel goalViewModel;
     public static final int NEW_GOAL_ACTIVITY_REQUEST_CODE = 1;
 
     @Override
@@ -38,7 +39,7 @@ public class GoalsActivity extends BaseActivity {
         RecyclerView goalsList = (RecyclerView) findViewById(R.id.goal_list);
         goalsList.setLayoutManager(new LinearLayoutManager(this));
 
-        goalViewModel = ViewModelProviders.of(this).get(GoalViewModel.class);
+        goalViewModel = ViewModelProviders.of(this).get(AppViewModel.class);
 
         final GoalsAdapter goalsAdapter = new GoalsAdapter(goals, goalViewModel);
         goalsList.setAdapter(goalsAdapter);

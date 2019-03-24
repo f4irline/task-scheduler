@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.github.f4irline.taskscheduler.AppViewModel;
 import com.github.f4irline.taskscheduler.R;
 
 import java.util.List;
@@ -31,9 +32,9 @@ public class GoalsAdapter extends RecyclerView.Adapter<GoalsAdapter.ViewHolder> 
     }
 
     private List<Goal> goals;
-    private GoalViewModel goalViewModel;
+    private AppViewModel goalViewModel;
 
-    public GoalsAdapter(List<Goal> goals, GoalViewModel goalViewModel) {
+    public GoalsAdapter(List<Goal> goals, AppViewModel goalViewModel) {
         this.goals = goals;
         this.goalViewModel = goalViewModel;
     }

@@ -3,10 +3,7 @@ package com.github.f4irline.taskscheduler.Tasks;
 import android.app.Application;
 import android.os.AsyncTask;
 
-import com.github.f4irline.taskscheduler.Goals.Goal;
-import com.github.f4irline.taskscheduler.Goals.GoalDao;
-import com.github.f4irline.taskscheduler.Goals.GoalDatabase;
-import com.github.f4irline.taskscheduler.Goals.GoalRepository;
+import com.github.f4irline.taskscheduler.DatabaseImpl;
 
 import java.util.List;
 
@@ -16,13 +13,13 @@ public class TaskRepository {
     private TaskDao mTaskDao;
     private LiveData<List<Task>> allTasks;
 
-    TaskRepository(Application application) {
-        TaskDatabase db = TaskDatabase.getDatabase(application);
+    public TaskRepository(Application application) {
+        DatabaseImpl db = DatabaseImpl.getTaskDatabase(application);
         mTaskDao = db.taskDao();
         allTasks = mTaskDao.getAllTasks();
     }
 
-    LiveData<List<Task>> getAllTasks() {
+    public LiveData<List<Task>> getAllTasks() {
         return allTasks;
     }
 

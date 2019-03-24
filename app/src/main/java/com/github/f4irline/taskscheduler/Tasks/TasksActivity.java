@@ -7,29 +7,24 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.github.f4irline.taskscheduler.AppViewModel;
 import com.github.f4irline.taskscheduler.BaseActivity;
-import com.github.f4irline.taskscheduler.Goals.Goal;
-import com.github.f4irline.taskscheduler.Goals.GoalViewModel;
-import com.github.f4irline.taskscheduler.Goals.GoalsAdapter;
 import com.github.f4irline.taskscheduler.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.room.Room;
 
 public class TasksActivity extends BaseActivity {
 
     public static boolean tasksActive = false;
 
     List<Task> tasks;
-    private TaskViewModel taskViewModel;
+    private AppViewModel taskViewModel;
     public static final int NEW_TASK_ACTIVITY_REQUEST_CODE = 1;
 
     @Override
@@ -40,7 +35,7 @@ public class TasksActivity extends BaseActivity {
         RecyclerView tasksList = (RecyclerView) findViewById(R.id.task_list);
         tasksList.setLayoutManager(new LinearLayoutManager(this));
 
-        taskViewModel = ViewModelProviders.of(this).get(TaskViewModel.class);
+        taskViewModel = ViewModelProviders.of(this).get(AppViewModel.class);
 
         final TasksAdapter tasksAdapter = new TasksAdapter(tasks, taskViewModel);
         tasksList.setAdapter(tasksAdapter);

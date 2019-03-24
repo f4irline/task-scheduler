@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.github.f4irline.taskscheduler.AppViewModel;
 import com.github.f4irline.taskscheduler.R;
 
 import java.util.List;
@@ -30,9 +31,9 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
     }
 
     private List<Task> tasks;
-    private TaskViewModel taskViewModel;
+    private AppViewModel taskViewModel;
 
-    public TasksAdapter(List<Task> tasks, TaskViewModel taskViewModel) {
+    public TasksAdapter(List<Task> tasks, AppViewModel taskViewModel) {
         this.tasks = tasks;
         this.taskViewModel = taskViewModel;
     }

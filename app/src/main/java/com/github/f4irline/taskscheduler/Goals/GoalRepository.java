@@ -3,9 +3,7 @@ package com.github.f4irline.taskscheduler.Goals;
 import android.app.Application;
 import android.os.AsyncTask;
 
-import com.github.f4irline.taskscheduler.Goals.Goal;
-import com.github.f4irline.taskscheduler.Goals.GoalDao;
-import com.github.f4irline.taskscheduler.Goals.GoalDatabase;
+import com.github.f4irline.taskscheduler.DatabaseImpl;
 
 import java.util.List;
 
@@ -15,13 +13,13 @@ public class GoalRepository {
     private GoalDao mGoalDao;
     private LiveData<List<Goal>> allGoals;
 
-    GoalRepository(Application application) {
-        GoalDatabase db = GoalDatabase.getDatabase(application);
+    public GoalRepository(Application application) {
+        DatabaseImpl db = DatabaseImpl.getGoalDatabase(application);
         mGoalDao = db.goalDao();
         allGoals = mGoalDao.getAllGoals();
     }
 
-    LiveData<List<Goal>> getAllGoals() {
+    public LiveData<List<Goal>> getAllGoals() {
         return allGoals;
     }
 
