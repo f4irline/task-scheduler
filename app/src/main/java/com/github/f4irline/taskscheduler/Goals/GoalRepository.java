@@ -2,6 +2,7 @@ package com.github.f4irline.taskscheduler.Goals;
 
 import android.app.Application;
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.github.f4irline.taskscheduler.DatabaseImpl;
 
@@ -36,7 +37,7 @@ public class GoalRepository {
 
     public void update (int gId, float goalDone) {
         executor.execute(() -> {
-            mGoalDao.updateGoal(gId, goalDone);
+            Log.d("GoalRepository", "Id: "+mGoalDao.updateGoal(gId, goalDone));
         });
     }
 

@@ -27,6 +27,6 @@ public interface GoalDao {
     @Delete
     void delete(Goal goal);
 
-    @Query("UPDATE goal_table SET goal_done = goal_done + :goalDone WHERE goalId = :gId")
+    @Query("UPDATE goal_table SET goal_done = :goalDone WHERE goalId = :gId")
     int updateGoal(int gId, float goalDone);
 }

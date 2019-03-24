@@ -10,10 +10,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 
+import com.github.f4irline.taskscheduler.Goals.Goal;
 import com.github.f4irline.taskscheduler.Goals.GoalsActivity;
 import com.github.f4irline.taskscheduler.Tasks.TasksActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
+
+import java.util.List;
 
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -32,6 +35,8 @@ public class BaseActivity extends AppCompatActivity {
     public Context mContext;
 
     protected AppViewModel viewModel;
+
+    List<Goal> goals;
 
     public NavigationView getNavigationView() {
         return navigationView;
@@ -83,12 +88,7 @@ public class BaseActivity extends AppCompatActivity {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
             public boolean onNavigationItemSelected(MenuItem menuItem) {
-                if (menuItem.isChecked()) {
-                    menuItem.setChecked(false);
-                }
-                else {
-                    menuItem.setChecked(true);
-                }
+                menuItem.setChecked(true);
 
                 drawerLayout.closeDrawers();
 
