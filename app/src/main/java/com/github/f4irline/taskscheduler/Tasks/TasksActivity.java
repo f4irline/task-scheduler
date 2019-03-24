@@ -24,7 +24,7 @@ public class TasksActivity extends BaseActivity {
     public static boolean tasksActive = false;
 
     List<Task> tasks;
-    private AppViewModel taskViewModel;
+    private AppViewModel viewModel;
     public static final int NEW_TASK_ACTIVITY_REQUEST_CODE = 1;
 
     @Override
@@ -35,12 +35,12 @@ public class TasksActivity extends BaseActivity {
         RecyclerView tasksList = (RecyclerView) findViewById(R.id.task_list);
         tasksList.setLayoutManager(new LinearLayoutManager(this));
 
-        taskViewModel = ViewModelProviders.of(this).get(AppViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(AppViewModel.class);
 
-        final TasksAdapter tasksAdapter = new TasksAdapter(tasks, taskViewModel);
+        final TasksAdapter tasksAdapter = new TasksAdapter(tasks, viewModel);
         tasksList.setAdapter(tasksAdapter);
 
-        taskViewModel.getAllTasks().observe(this, new Observer<List<Task>>() {
+        viewModel.getAllTasks().observe(this, new Observer<List<Task>>() {
             @Override
             public void onChanged(@Nullable final List<Task> words) {
                 tasksAdapter.setTasks(words);
@@ -54,7 +54,7 @@ public class TasksActivity extends BaseActivity {
 
         if (requestCode == NEW_TASK_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             Task task = new Task(data.getStringExtra("task"));
-            taskViewModel.insert(task);
+            viewModel.insert(task);
         } else {
             Toast.makeText(
                     getApplicationContext(),

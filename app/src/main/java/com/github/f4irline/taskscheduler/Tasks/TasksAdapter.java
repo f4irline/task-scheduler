@@ -31,11 +31,11 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
     }
 
     private List<Task> tasks;
-    private AppViewModel taskViewModel;
+    private AppViewModel viewModel;
 
-    public TasksAdapter(List<Task> tasks, AppViewModel taskViewModel) {
+    public TasksAdapter(List<Task> tasks, AppViewModel viewModel) {
         this.tasks = tasks;
-        this.taskViewModel = taskViewModel;
+        this.viewModel = viewModel;
     }
 
     @Override
@@ -57,7 +57,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
             viewHolder.removeButton.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View v) {
-                    taskViewModel.delete(task);
+                   viewModel.delete(task);
                }
             });
         } else {

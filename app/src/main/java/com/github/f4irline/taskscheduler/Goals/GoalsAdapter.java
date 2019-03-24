@@ -32,11 +32,11 @@ public class GoalsAdapter extends RecyclerView.Adapter<GoalsAdapter.ViewHolder> 
     }
 
     private List<Goal> goals;
-    private AppViewModel goalViewModel;
+    private AppViewModel viewModel;
 
-    public GoalsAdapter(List<Goal> goals, AppViewModel goalViewModel) {
+    public GoalsAdapter(List<Goal> goals, AppViewModel viewModel) {
         this.goals = goals;
-        this.goalViewModel = goalViewModel;
+        this.viewModel = viewModel;
     }
 
     @Override
@@ -58,7 +58,7 @@ public class GoalsAdapter extends RecyclerView.Adapter<GoalsAdapter.ViewHolder> 
             viewHolder.removeButton.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View v) {
-                   goalViewModel.delete(goal);
+                   viewModel.delete(goal);
                }
             });
         } else {

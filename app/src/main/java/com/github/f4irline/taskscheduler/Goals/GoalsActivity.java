@@ -28,7 +28,7 @@ public class GoalsActivity extends BaseActivity {
     public static boolean goalsActive = false;
 
     List<Goal> goals;
-    private AppViewModel goalViewModel;
+    private AppViewModel viewModel;
     public static final int NEW_GOAL_ACTIVITY_REQUEST_CODE = 1;
 
     @Override
@@ -39,12 +39,12 @@ public class GoalsActivity extends BaseActivity {
         RecyclerView goalsList = (RecyclerView) findViewById(R.id.goal_list);
         goalsList.setLayoutManager(new LinearLayoutManager(this));
 
-        goalViewModel = ViewModelProviders.of(this).get(AppViewModel.class);
+        viewModel = ViewModelProviders.of(this).get(AppViewModel.class);
 
-        final GoalsAdapter goalsAdapter = new GoalsAdapter(goals, goalViewModel);
+        final GoalsAdapter goalsAdapter = new GoalsAdapter(goals, viewModel);
         goalsList.setAdapter(goalsAdapter);
 
-        goalViewModel.getAllGoals().observe(this, new Observer<List<Goal>>() {
+        viewModel.getAllGoals().observe(this, new Observer<List<Goal>>() {
             @Override
             public void onChanged(@Nullable final List<Goal> words) {
                 // Update the cached copy of the words in the adapter.
@@ -59,7 +59,7 @@ public class GoalsActivity extends BaseActivity {
 
         if (requestCode == NEW_GOAL_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             Goal goal = new Goal(data.getStringExtra("goal"), data.getFloatExtra("time", 0));
-            goalViewModel.insert(goal);
+            viewModel.insert(goal);
         } else {
             Toast.makeText(
                     getApplicationContext(),
