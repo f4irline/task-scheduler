@@ -36,5 +36,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
-        app:menu="@menu/nav_items" />
+        app:menu="@menu/nav_items"
+        app:itemTextAppearance="@style/RobotoMenuItemStyle"/>
 </androidx.drawerlayout.widget.DrawerLayout>

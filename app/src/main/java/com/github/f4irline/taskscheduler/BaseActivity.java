@@ -77,7 +77,7 @@ public class BaseActivity extends AppCompatActivity {
     private void setUpNav() {
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerToggle = new ActionBarDrawerToggle(BaseActivity.this, drawerLayout, R.string.app_name, R.string.app_name);
-        drawerLayout.setDrawerListener(drawerToggle);
+        drawerLayout.addDrawerListener(drawerToggle);
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -87,6 +87,7 @@ public class BaseActivity extends AppCompatActivity {
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
 
+            @Override
             public boolean onNavigationItemSelected(MenuItem menuItem) {
                 menuItem.setChecked(true);
 
@@ -125,7 +126,18 @@ public class BaseActivity extends AppCompatActivity {
             }
         });
 
+        setNavigationViewCheckedItem();
         drawerToggle.syncState();
+    }
+
+    private void setNavigationViewCheckedItem() {
+        if (this.getClass().equals(MainActivity.class)) {
+            navigationView.setCheckedItem(R.id.nav_dash);
+        } else if (this.getClass().equals(GoalsActivity.class)) {
+            navigationView.setCheckedItem(R.id.nav_goals);
+        } else {
+            navigationView.setCheckedItem(R.id.nav_tasks);
+        }
     }
 
     @Override
