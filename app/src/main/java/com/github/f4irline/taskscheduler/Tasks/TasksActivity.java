@@ -61,7 +61,7 @@ public class TasksActivity extends BaseActivity {
     }
 
     public void addTask(View v) {
-        EditText taskField = findViewById(R.id.taskText);
+        EditText taskField = findViewById(R.id.taskTextInput);
 
         Intent replyIntent = new Intent();
         if (TextUtils.isEmpty(taskField.getText())) {

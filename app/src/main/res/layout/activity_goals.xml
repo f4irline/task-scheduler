@@ -6,39 +6,51 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/goals_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Goals"
+        style="@style/RobotoHeaderStyle"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp" />
-
-    <EditText
-        android:id="@+id/goalText"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
-        android:ems="10"
-        android:hint="Goal"
-        android:layout_marginLeft="50dp"
-        android:inputType="text" />
+        android:id="@+id/controlsWrapper"
+        android:layout_below="@+id/goals_header">
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:layout_marginStart="50dp"
+            android:ems="10"
+            android:hint="Goal">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/goalText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
-    <EditText
-        android:id="@+id/timeText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
-        android:layout_toRightOf="@id/goalText"
-        android:layout_marginRight="50dp"
-        android:ems="10"
-        android:hint="Time"
-        android:inputType="numberDecimal" />
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginEnd="50dp"
+            android:ems="10"
+            android:hint="Time"
+            android:inputType="numberDecimal">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/timeText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/addButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/goalText"
+        android:layout_below="@+id/controlsWrapper"
         android:layout_marginHorizontal="50dp"
         android:onClick="addGoal"
         android:text="Add" />
