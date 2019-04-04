@@ -72,8 +72,10 @@ public abstract class DatabaseImpl extends RoomDatabase {
         protected Void doInBackground(final Void... params) {
             mDao.deleteAll();
             Goal goal = new Goal("Code", 20);
+            goal.setGoalDone(10);
             mDao.insert(goal);
             goal = new Goal("Read", 30);
+            goal.setGoalDone(10);
             mDao.insert(goal);
             goal = new Goal("Exercise", 20);
             mDao.insert(goal);

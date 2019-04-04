@@ -44,4 +44,9 @@ public class Goal implements Serializable {
     public void setGoalDone(float goalDone) {
         this.goalDone = goalDone;
     }
+
+    @Override
+    public String toString() {
+        return this.goal;
+    }
 }

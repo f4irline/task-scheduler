@@ -59,14 +59,6 @@ public class BaseActivity extends AppCompatActivity {
         super.setContentView(drawerLayout);
 
         initToolbar();
-
-        floatingActionButton = drawerLayout.findViewById(R.id.floating_action_button);
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewModel.update(1, 30);
-            }
-        });
     }
 
     private void initToolbar() {
@@ -164,5 +156,11 @@ public class BaseActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void floatingButtonClickedHandler(View v) {
+        Log.d("floatingButtonClickedHandler", "Click");
+        HoursDialogFragment dialog = new HoursDialogFragment();
+        dialog.show(getSupportFragmentManager(), "goals");
     }
 }

@@ -36,6 +36,8 @@ public class AppViewModel extends AndroidViewModel {
 
     public LiveData<List<Goal>> getAllGoals() { return allGoals; }
 
+    public void getTotalGoalTime() { goalRepository.getTotalGoalTime(); }
+
     public void insert(Goal goal) { goalRepository.insert(goal); }
 
     public void delete(Goal goal) { goalRepository.delete(goal); }

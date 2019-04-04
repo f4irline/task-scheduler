@@ -25,4 +25,9 @@ public class Task implements Serializable {
     }
 
     public int getTaskId() { return this.taskId; }
+
+    @Override
+    public String toString() {
+        return this.task;
+    }
 }

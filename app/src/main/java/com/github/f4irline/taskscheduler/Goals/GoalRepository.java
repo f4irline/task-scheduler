@@ -29,6 +29,12 @@ public class GoalRepository {
         return allGoals;
     }
 
+    public void getTotalGoalTime() {
+        executor.execute(() -> {
+            mGoalDao.getTotalGoalTime();
+        });
+    }
+
     public void insert (Goal goal) {
         new insertAsyncTask(mGoalDao).execute(goal);
     }

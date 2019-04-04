@@ -15,6 +15,9 @@ public interface GoalDao {
     @Query("SELECT * FROM goal_table")
     LiveData<List<Goal>> getAllGoals();
 
+    @Query("SELECT SUM(goal_time) FROM goal_table")
+    float getTotalGoalTime();
+
     @Insert
     void insert(Goal goal);
 
@@ -27,6 +30,6 @@ public interface GoalDao {
     @Delete
     void delete(Goal goal);
 
-    @Query("UPDATE goal_table SET goal_done = :goalDone WHERE goalId = :gId")
+    @Query("UPDATE goal_table SET goal_done = goal_done + :goalDone WHERE goalId = :gId")
     int updateGoal(int gId, float goalDone);
 }

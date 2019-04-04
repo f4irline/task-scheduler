@@ -27,4 +27,20 @@
         <item name="android:textSize">24dp</item>
         <item name="android:textAllCaps">true</item>
     </style>
+
+    <style name="RobotoSubHeaderStyle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">sans-serif</item>
+        <item name="android:textSize">18dp</item>
+    </style>
+
+    <string-array name="planets_array">
+        <item>Mercury</item>
+        <item>Venus</item>
+        <item>Earth</item>
+        <item>Mars</item>
+        <item>Jupiter</item>
+        <item>Saturn</item>
+        <item>Uranus</item>
+        <item>Neptune</item>
+    </string-array>
 </resources>

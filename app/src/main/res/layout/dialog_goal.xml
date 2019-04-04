@@ -1,27 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <TextView
-        android:id="@+id/goals_header"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Goals"
-        style="@style/RobotoHeaderStyle"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp" />
-
+    android:layout_height="wrap_content"
+    android:padding="10dp">
     <View
         android:id="@+id/headerDivider"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_below="@+id/goals_header"
         android:background="?android:attr/listDivider"
-        android:layout_marginHorizontal="50dp"
+        android:layout_marginHorizontal="20dp"
         android:layout_marginTop="10dp"/>
 
     <LinearLayout
@@ -32,11 +21,11 @@
         android:layout_below="@+id/headerDivider">
 
         <Spinner
-            android:id="@+id/goals_spinner"
+            android:id="@+id/dialog_goals_spinner"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="2"
-            android:layout_marginStart="50dp"
+            android:layout_marginStart="10dp"
             android:spinnerMode="dropdown"
             style="@style/Widget.AppCompat.Spinner.DropDown"
             android:ems="10"/>
@@ -45,7 +34,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginEnd="50dp"
+            android:layout_marginEnd="10dp"
             android:ems="10"
             android:hint="Time"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -55,36 +44,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </com.google.android.material.textfield.TextInputLayout>
+
     </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/addButton"
+        android:id="@+id/saveButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/controlsWrapper"
-        android:layout_marginHorizontal="50dp"
-        android:onClick="addGoal"
-        android:text="Add" />
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="30dp"
+        android:text="Save" />
 
-    <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:layout_below="@+id/addButton"
-        android:background="?android:attr/listDivider"
-        android:layout_marginHorizontal="50dp"
-        android:layout_marginTop="20dp"/>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/goal_list"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/divider"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginTop="20dp"
-        android:scrollbars="vertical"
-        android:layout_centerInParent="true">
-
-    </androidx.recyclerview.widget.RecyclerView>
 </RelativeLayout>

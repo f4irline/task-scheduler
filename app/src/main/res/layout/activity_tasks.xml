@@ -14,14 +14,25 @@
         style="@style/RobotoHeaderStyle"
         android:layout_marginTop="10dp" />
 
+    <View
+        android:id="@+id/headerDivider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/tasks_header"
+        android:background="?android:attr/listDivider"
+        android:layout_marginHorizontal="50dp"
+        android:layout_marginTop="10dp"/>
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/taskText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tasks_header"
+        android:layout_below="@+id/headerDivider"
+        android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="Task"
         android:layout_marginHorizontal="50dp"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:inputType="text">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/taskTextInput"

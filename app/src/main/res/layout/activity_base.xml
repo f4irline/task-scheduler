@@ -27,6 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"
                 android:layout_margin="16dp"
+                android:onClick="floatingButtonClickedHandler"
                 app:srcCompat="@drawable/ic_add_24dp"/>
         </FrameLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

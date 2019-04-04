@@ -15,4 +15,32 @@
         android:layout_marginTop="10dp"
         style="@style/RobotoHeaderStyle"
         />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@+id/dashboardText"
+        android:background="?android:attr/listDivider"
+        android:layout_marginHorizontal="50dp"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/yourProgress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your progress: "
+        android:layout_below="@id/divider"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        style="@style/RobotoSubHeaderStyle"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:indeterminate="false"
+        android:layout_marginHorizontal="50dp"
+        android:layout_below="@id/yourProgress"
+        android:layout_height="wrap_content" />
 </RelativeLayout>
