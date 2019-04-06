@@ -56,7 +56,6 @@ public abstract class DatabaseImpl extends RoomDatabase {
                 @Override
                 public void onOpen (@NonNull SupportSQLiteDatabase db){
                     super.onOpen(db);
-                    new PopulateGoalDbAsync(GOAL_INSTANCE).execute();
                 }
             };
 
@@ -89,7 +88,6 @@ public abstract class DatabaseImpl extends RoomDatabase {
                 @Override
                 public void onOpen (@NonNull SupportSQLiteDatabase db){
                     super.onOpen(db);
-                    new PopulateTaskDbAsync(TASK_INSTANCE).execute();
                 }
             };
 

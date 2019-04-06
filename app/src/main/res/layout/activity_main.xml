@@ -43,4 +43,12 @@
         android:layout_marginHorizontal="50dp"
         android:layout_below="@id/yourProgress"
         android:layout_height="wrap_content" />
+
+    <com.github.mikephil.charting.charts.PieChart
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="20dp"
+        android:id="@+id/generalChart"
+        android:layout_width="match_parent"
+        android:layout_below="@id/progressBar"
+        android:layout_height="match_parent" />
 </RelativeLayout>
