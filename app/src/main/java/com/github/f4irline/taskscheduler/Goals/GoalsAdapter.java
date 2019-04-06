@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.github.f4irline.taskscheduler.AppViewModel;
@@ -22,6 +23,7 @@ public class GoalsAdapter extends RecyclerView.Adapter<GoalsAdapter.ViewHolder> 
         public TextView timeText;
         public TextView goalDone;
         public ImageButton removeButton;
+        public ProgressBar goalProgress;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -29,7 +31,7 @@ public class GoalsAdapter extends RecyclerView.Adapter<GoalsAdapter.ViewHolder> 
             timeText = (TextView) itemView.findViewById(R.id.goal_time);
             goalDone = (TextView) itemView.findViewById(R.id.goal_done);
             removeButton = (ImageButton) itemView.findViewById(R.id.remove_goal);
-
+            goalProgress = (ProgressBar) itemView.findViewById(R.id.goal_progress);
         }
     }
 
@@ -58,6 +60,8 @@ public class GoalsAdapter extends RecyclerView.Adapter<GoalsAdapter.ViewHolder> 
             viewHolder.goalText.setText(goal.goal);
             viewHolder.timeText.setText(String.valueOf(goal.goalTime));
             viewHolder.goalDone.setText(String.valueOf(goal.goalDone));
+            float ratio = (goal.goalDone / goal.goalTime) * 100;
+            viewHolder.goalProgress.setProgress((int) ratio, true);
             viewHolder.removeButton.setOnClickListener(new View.OnClickListener() {
                @Override
                public void onClick(View v) {
