@@ -22,6 +22,8 @@ import java.util.List;
 public class MainActivity extends BaseActivity {
 
     public static boolean mainActive = true;
+    private PieChart pieChart;
+    private PieDataSet set;
     List<PieEntry> entries;
 
     @Override
@@ -52,9 +54,10 @@ public class MainActivity extends BaseActivity {
     }
 
     private void initPieChart() {
-        PieChart pieChart = findViewById(R.id.generalChart);
+        pieChart = findViewById(R.id.generalChart);
+        pieChart.setTouchEnabled(false);
 
-        PieDataSet set = new PieDataSet(entries, "");
+        set = new PieDataSet(entries, "");
         set.setColors(ColorTemplate.MATERIAL_COLORS);
         PieData data = new PieData(set);
         pieChart.setData(data);
@@ -62,6 +65,10 @@ public class MainActivity extends BaseActivity {
         Description desc = new Description();
         desc.setText("");
         pieChart.setDescription(desc);
+        pieChart.setNoDataText("Nothing here yet. Maybe add some goals?");
+        pieChart.setNoDataTextColor(R.color.colorPrimary);
+        pieChart.setCenterText("YOUR GOALS");
+        pieChart.setCenterTextColor(R.color.colorPrimary);
         pieChart.invalidate();
     }
 }
