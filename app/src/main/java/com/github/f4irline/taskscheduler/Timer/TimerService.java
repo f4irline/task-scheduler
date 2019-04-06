@@ -11,6 +11,8 @@ public class TimerService extends Service implements Runnable {
     public static boolean isRunning;
     private Thread thread;
     private int seconds;
+    private int minutes;
+    private int hours;
 
     @Override
     public IBinder onBind(Intent arg0) {
@@ -44,12 +46,26 @@ public class TimerService extends Service implements Runnable {
             try {
                 Log.d("TimerService", "Tick");
                 Intent intent = new Intent("android.intent.action.TIME_TICK");
-                intent.putExtra("time", seconds);
+                intent.putExtra("seconds", seconds);
+                intent.putExtra("minutes", minutes);
+                intent.putExtra("hours", hours);
                 LocalBroadcastManager.getInstance(this).sendBroadcast(intent);
-                seconds++;
+                calculateTime();
                 Thread.sleep(1000);
             } catch (InterruptedException ex) {
                 ex.printStackTrace();
+            }
+        }
+    }
+
+    private void calculateTime() {
+        seconds++;
+        if (seconds % 60 == 0) {
+            minutes++;
+            seconds = 0;
+            if (minutes % 60 == 0) {
+                hours++;
+                minutes = 0;
             }
         }
     }

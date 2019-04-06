@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.github.f4irline.taskscheduler.Goals.Goal;
 import com.github.f4irline.taskscheduler.Timer.TimerReceiver;
+import com.github.f4irline.taskscheduler.Timer.TimerReceiverCallback;
 import com.github.f4irline.taskscheduler.Timer.TimerService;
 
 import java.util.List;
@@ -25,7 +26,7 @@ import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-public class HoursDialogFragment extends DialogFragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
+public class HoursDialogFragment extends DialogFragment implements View.OnClickListener, AdapterView.OnItemSelectedListener, TimerReceiverCallback {
     private AppViewModel viewModel;
 
     private Spinner goalsSpinner;
@@ -86,7 +87,7 @@ public class HoursDialogFragment extends DialogFragment implements View.OnClickL
             timerButton.setText("Stop timer");
         }
 
-        receiver = new TimerReceiver();
+        receiver = new TimerReceiver(this);
         LocalBroadcastManager.getInstance(getContext()).registerReceiver(receiver, new IntentFilter("android.intent.action.TIME_TICK"));
 
         return builder.create();
@@ -147,5 +148,21 @@ public class HoursDialogFragment extends DialogFragment implements View.OnClickL
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
         chosenItem = 0;
+    }
+
+    @Override
+    public void onTimeReceived(Intent intent) {
+        Bundle extras = intent.getExtras();
+        int seconds = 0;
+        int minutes = 0;
+        int hours = 0;
+
+        if (extras != null) {
+            seconds = extras.getInt("seconds");
+            minutes = extras.getInt("minutes");
+            hours = extras.getInt("hours");
+        }
+
+        Log.d("HoursDialogFragment", "Time Tick, seconds: "+seconds+", minutes: "+minutes+", hours: "+hours);
     }
 }
