@@ -25,6 +25,7 @@ public class HoursDialogFragment extends DialogFragment implements View.OnClickL
 
     private Spinner goalsSpinner;
     private Button saveButton;
+    private Button timerButton;
 
     private EditText timeField;
 
@@ -44,12 +45,28 @@ public class HoursDialogFragment extends DialogFragment implements View.OnClickL
         builder.setTitle("Add progress on a goal");
 
         goalsSpinner = (Spinner) view.findViewById(R.id.dialog_goals_spinner);
+        goalsSpinner.setEnabled(false);
+
         saveButton = (Button) view.findViewById(R.id.saveButton);
+        saveButton.setEnabled(false);
+
+        timerButton = (Button) view.findViewById(R.id.timerButton);
+        timerButton.setEnabled(false);
+
         timeField = (EditText) view.findViewById(R.id.timeText);
 
         viewModel.getAllGoals().observe(this, goals -> {
             ArrayAdapter<Goal> adapter = new ArrayAdapter(this.getContext(), android.R.layout.simple_spinner_item, goals);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+            if (goals.isEmpty()) {
+                adapter.add(new Goal("Empty", 0));
+            } else {
+                goalsSpinner.setEnabled(true);
+                timerButton.setEnabled(true);
+                saveButton.setEnabled(true);
+            }
+
             goalsList = goals;
             goalsSpinner.setAdapter(adapter);
         });
