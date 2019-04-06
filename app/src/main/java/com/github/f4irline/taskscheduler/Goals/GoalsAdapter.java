@@ -58,8 +58,8 @@ public class GoalsAdapter extends RecyclerView.Adapter<GoalsAdapter.ViewHolder> 
         if (goals != null) {
             final Goal goal = goals.get(i);
             viewHolder.goalText.setText(goal.goal);
-            viewHolder.timeText.setText(String.valueOf(goal.goalTime));
-            viewHolder.goalDone.setText(String.valueOf(goal.goalDone));
+            viewHolder.timeText.setText(String.valueOf(goal.goalTime)+"h");
+            viewHolder.goalDone.setText(String.valueOf(goal.goalDone)+"h");
             float ratio = (goal.goalDone / goal.goalTime) * 100;
             viewHolder.goalProgress.setProgress((int) ratio, true);
             viewHolder.removeButton.setOnClickListener(new View.OnClickListener() {

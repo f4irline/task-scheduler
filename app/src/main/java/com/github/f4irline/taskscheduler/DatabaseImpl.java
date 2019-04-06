@@ -59,7 +59,7 @@ public abstract class DatabaseImpl extends RoomDatabase {
                 }
             };
 
-    private static class PopulateGoalDbAsync extends AsyncTask<Void, Void, Void> {
+    /*private static class PopulateGoalDbAsync extends AsyncTask<Void, Void, Void> {
 
         private final GoalDao mDao;
 
@@ -80,7 +80,7 @@ public abstract class DatabaseImpl extends RoomDatabase {
             mDao.insert(goal);
             return null;
         }
-    }
+    }*/
 
     private static RoomDatabase.Callback taskDatabaseCallback =
             new RoomDatabase.Callback(){
@@ -91,7 +91,7 @@ public abstract class DatabaseImpl extends RoomDatabase {
                 }
             };
 
-    private static class PopulateTaskDbAsync extends AsyncTask<Void, Void, Void> {
+    /*private static class PopulateTaskDbAsync extends AsyncTask<Void, Void, Void> {
 
         private final TaskDao mDao;
 
@@ -110,5 +110,5 @@ public abstract class DatabaseImpl extends RoomDatabase {
             mDao.insert(task);
             return null;
         }
-    }
+    }*/
 }
