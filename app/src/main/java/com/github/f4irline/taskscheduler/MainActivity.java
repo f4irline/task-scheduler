@@ -1,10 +1,14 @@
 package com.github.f4irline.taskscheduler;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.github.f4irline.taskscheduler.Goals.Goal;
 import com.github.f4irline.taskscheduler.Goals.GoalsActivity;
@@ -16,6 +20,10 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,6 +59,8 @@ public class MainActivity extends BaseActivity {
 
             initPieChart();
         });
+
+        getRandomFact();
     }
 
     private void initPieChart() {
@@ -70,5 +80,43 @@ public class MainActivity extends BaseActivity {
         pieChart.setCenterText("YOUR GOALS");
         pieChart.setCenterTextColor(R.color.colorPrimary);
         pieChart.invalidate();
+    }
+
+    private void getRandomFact() {
+        TextView randomFact = findViewById(R.id.randomFact);
+        String fact = "";
+        ConnectivityManager mgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo network = mgr.getActiveNetworkInfo();
+
+        if (network != null & network.isConnected()) {
+            try {
+                fact = fetchFact();
+                Log.d("getRandomFact", fact);
+            } catch (IOException ex) {
+                Log.d("getRandomFact", "Error fetching fact.");
+            }
+        }
+    }
+
+    private String fetchFact() throws IOException {
+        InputStream in = null;
+
+        try {
+            URL url = new URL("http://randomuselessfact.appspot.com/today.json?language=en");
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            in = conn.getInputStream();
+
+            int myChar;
+            String result = "";
+            while ((myChar = in.read()) != -1) {
+                result += (char) myChar;
+            }
+
+            return result;
+        } finally {
+            if (in != null) {
+                in.close();
+            }
+        }
     }
 }

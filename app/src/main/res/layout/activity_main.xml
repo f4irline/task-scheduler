@@ -50,5 +50,12 @@
         android:id="@+id/generalChart"
         android:layout_width="match_parent"
         android:layout_below="@id/progressBar"
+        android:layout_above="@id/randomFact"
         android:layout_height="match_parent" />
+    <TextView
+        android:id="@+id/randomFact"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="test"/>
 </RelativeLayout>
