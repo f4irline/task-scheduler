@@ -1,10 +1,7 @@
 package com.github.f4irline.taskscheduler.Goals;
 
-import com.github.f4irline.taskscheduler.Tasks.Task;
-
 import java.io.Serializable;
 
-import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;

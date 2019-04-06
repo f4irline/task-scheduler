@@ -1,7 +1,9 @@
-package com.github.f4irline.taskscheduler.Timer;
+package com.github.f4irline.taskscheduler.TimerTools;
 
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.util.Log;
 
@@ -14,6 +16,9 @@ public class TimerService extends Service implements Runnable {
     private int minutes;
     private int hours;
 
+    private SharedPreferences sharedPref;
+    private SharedPreferences.Editor editor;
+
     @Override
     public IBinder onBind(Intent arg0) {
         return null;
@@ -21,6 +26,12 @@ public class TimerService extends Service implements Runnable {
 
     @Override
     public void onDestroy() {
+        Log.d("TimerService", "onDestroy");
+        editor = sharedPref.edit();
+        editor.putInt("seconds", 0);
+        editor.putInt("minutes", 0);
+        editor.putInt("hours", 0);
+        editor.apply();
         isRunning = false;
     }
 
@@ -28,7 +39,6 @@ public class TimerService extends Service implements Runnable {
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (!isRunning) {
             thread.start();
-            seconds = 0;
         }
         return START_STICKY;
     }
@@ -36,6 +46,10 @@ public class TimerService extends Service implements Runnable {
     @Override
     public void onCreate() {
         isRunning = false;
+        sharedPref = getSharedPreferences("Time", Context.MODE_PRIVATE);
+        seconds = seconds + sharedPref.getInt("seconds", 0);
+        minutes = minutes + sharedPref.getInt("minutes", 0);
+        hours = hours + sharedPref.getInt("hours", 0);
         thread = new Thread(this);
     }
 
@@ -68,5 +82,11 @@ public class TimerService extends Service implements Runnable {
                 minutes = 0;
             }
         }
+
+        editor = sharedPref.edit();
+        editor.putInt("seconds", seconds);
+        editor.putInt("minutes", minutes);
+        editor.putInt("hours", hours);
+        editor.apply();
     }
 }

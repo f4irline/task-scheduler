@@ -1,4 +1,4 @@
-package com.github.f4irline.taskscheduler.Timer;
+package com.github.f4irline.taskscheduler.TimerTools;
 
 import android.content.Intent;
 

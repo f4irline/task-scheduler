@@ -1,7 +1,6 @@
 package com.github.f4irline.taskscheduler;
 
 import android.app.Application;
-import android.util.Log;
 
 import com.github.f4irline.taskscheduler.Goals.Goal;
 import com.github.f4irline.taskscheduler.Goals.GoalRepository;

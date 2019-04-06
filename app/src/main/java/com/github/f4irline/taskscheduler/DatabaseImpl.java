@@ -1,7 +1,6 @@
 package com.github.f4irline.taskscheduler;
 
 import android.content.Context;
-import android.os.AsyncTask;
 
 import com.github.f4irline.taskscheduler.Goals.Goal;
 import com.github.f4irline.taskscheduler.Goals.GoalDao;
@@ -59,6 +58,15 @@ public abstract class DatabaseImpl extends RoomDatabase {
                 }
             };
 
+    private static RoomDatabase.Callback taskDatabaseCallback =
+            new RoomDatabase.Callback(){
+
+                @Override
+                public void onOpen (@NonNull SupportSQLiteDatabase db){
+                    super.onOpen(db);
+                }
+            };
+
     /*private static class PopulateGoalDbAsync extends AsyncTask<Void, Void, Void> {
 
         private final GoalDao mDao;
@@ -81,15 +89,6 @@ public abstract class DatabaseImpl extends RoomDatabase {
             return null;
         }
     }*/
-
-    private static RoomDatabase.Callback taskDatabaseCallback =
-            new RoomDatabase.Callback(){
-
-                @Override
-                public void onOpen (@NonNull SupportSQLiteDatabase db){
-                    super.onOpen(db);
-                }
-            };
 
     /*private static class PopulateTaskDbAsync extends AsyncTask<Void, Void, Void> {
 

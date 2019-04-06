@@ -22,13 +22,13 @@
         <activity android:name=".Tasks.TasksActivity" />
         <activity android:name=".Goals.GoalsActivity" />
 
-        <receiver android:name=".Timer.TimerReceiver" android:enabled="true">
+        <receiver android:name=".TimerTools.TimerReceiver" android:enabled="true">
             <intent-filter>
                 <action android:name="android.intent.action.TIME_TICK" />
             </intent-filter>
         </receiver>
 
-        <service android:enabled="true" android:name=".Timer.TimerService" />
+        <service android:enabled="true" android:name=".TimerTools.TimerService" />
 
     </application>
 

@@ -16,12 +16,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.f4irline.taskscheduler.Goals.Goal;
-import com.github.f4irline.taskscheduler.Timer.TimerReceiver;
-import com.github.f4irline.taskscheduler.Timer.TimerReceiverCallback;
-import com.github.f4irline.taskscheduler.Timer.TimerService;
+import com.github.f4irline.taskscheduler.TimerTools.TimerReceiver;
+import com.github.f4irline.taskscheduler.TimerTools.TimerReceiverCallback;
+import com.github.f4irline.taskscheduler.TimerTools.TimerService;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -41,11 +42,9 @@ public class HoursDialogFragment extends DialogFragment implements View.OnClickL
 
     private int chosenItem;
 
-    private TimerReceiver receiver;
-
-    private String seconds;
-    private String minutes;
-    private String hours;
+    private int seconds = 0;
+    private int minutes = 0;
+    private int hours = 0;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -95,7 +94,7 @@ public class HoursDialogFragment extends DialogFragment implements View.OnClickL
             timerButton.setText("Stop timer");
         }
 
-        receiver = new TimerReceiver(this);
+        TimerReceiver receiver = new TimerReceiver(this);
         LocalBroadcastManager.getInstance(getContext()).registerReceiver(receiver, new IntentFilter("android.intent.action.TIME_TICK"));
 
         return builder.create();
@@ -161,13 +160,10 @@ public class HoursDialogFragment extends DialogFragment implements View.OnClickL
     @Override
     public void onTimeReceived(Intent intent) {
         Bundle extras = intent.getExtras();
-        int seconds = 0;
-        int minutes = 0;
-        int hours = 0;
 
-        String secondsText = "00";
-        String minutesText = "00";
-        String hoursText = "00";
+        String secondsText;
+        String minutesText;
+        String hoursText;
 
         if (extras != null) {
             seconds = extras.getInt("seconds");
