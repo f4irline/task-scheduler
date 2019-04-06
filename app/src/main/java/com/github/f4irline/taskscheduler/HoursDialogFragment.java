@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.f4irline.taskscheduler.Goals.Goal;
@@ -32,6 +33,7 @@ public class HoursDialogFragment extends DialogFragment implements View.OnClickL
     private Spinner goalsSpinner;
     private Button saveButton;
     private Button timerButton;
+    private TextView timerText;
 
     private EditText timeField;
 
@@ -40,6 +42,10 @@ public class HoursDialogFragment extends DialogFragment implements View.OnClickL
     private int chosenItem;
 
     private TimerReceiver receiver;
+
+    private String seconds;
+    private String minutes;
+    private String hours;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -62,6 +68,8 @@ public class HoursDialogFragment extends DialogFragment implements View.OnClickL
         timerButton.setEnabled(false);
 
         timeField = (EditText) view.findViewById(R.id.timeText);
+
+        timerText = (TextView) view.findViewById(R.id.timerText);
 
         viewModel.getAllGoals().observe(this, goals -> {
             ArrayAdapter<Goal> adapter = new ArrayAdapter(this.getContext(), android.R.layout.simple_spinner_item, goals);
@@ -157,11 +165,35 @@ public class HoursDialogFragment extends DialogFragment implements View.OnClickL
         int minutes = 0;
         int hours = 0;
 
+        String secondsText = "00";
+        String minutesText = "00";
+        String hoursText = "00";
+
         if (extras != null) {
             seconds = extras.getInt("seconds");
             minutes = extras.getInt("minutes");
             hours = extras.getInt("hours");
         }
+
+        if (seconds < 10) {
+            secondsText = "0"+seconds;
+        } else {
+            secondsText = String.valueOf(seconds);
+        }
+
+        if (minutes < 10) {
+            minutesText = "0"+minutes;
+        } else {
+            minutesText = String.valueOf(minutes);
+        }
+
+        if (hours < 10) {
+            hoursText = "0"+hours;
+        } else {
+            hoursText = String.valueOf(hours);
+        }
+
+        timerText.setText(hoursText+":"+minutesText+":"+secondsText);
 
         Log.d("HoursDialogFragment", "Time Tick, seconds: "+seconds+", minutes: "+minutes+", hours: "+hours);
     }

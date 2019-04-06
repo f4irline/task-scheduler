@@ -78,12 +78,21 @@
         android:layout_height="wrap_content"
         android:text="Or start timer on the goal:"/>
 
+    <TextView
+        android:id="@+id/timerText"
+        android:layout_below="@id/timerHint"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="00:00:00"/>
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/timerButton"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:layout_below="@id/timerHint"
+        android:layout_below="@id/timerText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Start timer"/>
