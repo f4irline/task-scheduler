@@ -1,6 +1,8 @@
 package com.github.f4irline.taskscheduler;
 
 import android.app.Dialog;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -13,12 +15,15 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.github.f4irline.taskscheduler.Goals.Goal;
+import com.github.f4irline.taskscheduler.Timer.TimerReceiver;
+import com.github.f4irline.taskscheduler.Timer.TimerService;
 
 import java.util.List;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 public class HoursDialogFragment extends DialogFragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
     private AppViewModel viewModel;
@@ -32,6 +37,8 @@ public class HoursDialogFragment extends DialogFragment implements View.OnClickL
     private List<Goal> goalsList;
 
     private int chosenItem;
+
+    private TimerReceiver receiver;
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -72,13 +79,34 @@ public class HoursDialogFragment extends DialogFragment implements View.OnClickL
         });
 
         saveButton.setOnClickListener(this);
+        timerButton.setOnClickListener(this);
         goalsSpinner.setOnItemSelectedListener(this);
+
+        if (TimerService.isRunning) {
+            timerButton.setText("Stop timer");
+        }
+
+        receiver = new TimerReceiver();
+        LocalBroadcastManager.getInstance(getContext()).registerReceiver(receiver, new IntentFilter("android.intent.action.TIME_TICK"));
 
         return builder.create();
     }
 
     @Override
     public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.saveButton:
+                saveGoalProgress();
+                break;
+            case R.id.timerButton:
+                timerControl();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void saveGoalProgress() {
         if (TextUtils.isEmpty(timeField.getText())) {
             Toast.makeText(
                     this.getContext(),
@@ -89,6 +117,26 @@ public class HoursDialogFragment extends DialogFragment implements View.OnClickL
             Log.d("onClick", "Goal ID: "+goalsList.get(chosenItem).goalId+", Goal: "+goalsList.get(chosenItem).goal+", Time: "+timeField.getText());
             this.dismiss();
         }
+    }
+
+    private void timerControl() {
+        if (TimerService.isRunning) {
+            stopTimer();
+        } else {
+            startTimer();
+        }
+    }
+
+    private void startTimer() {
+        timerButton.setText("Stop timer");
+        Intent intent = new Intent(this.getActivity().getApplicationContext(), TimerService.class);
+        this.getContext().startService(intent);
+    }
+
+    private void stopTimer() {
+        timerButton.setText("Start timer");
+        Intent intent = new Intent(this.getActivity().getApplicationContext(), TimerService.class);
+        this.getContext().stopService(intent);
     }
 
     @Override
