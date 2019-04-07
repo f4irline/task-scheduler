@@ -44,4 +44,12 @@ public class AppViewModel extends AndroidViewModel {
     public void update(int gId, float goalDone) {
         goalRepository.update(gId, goalDone);
     }
+
+    public void updateGoalTotal(int gId, float goalDoneTotal) {
+        goalRepository.updateGoalTotal(gId, goalDoneTotal);
+    }
+
+    public void goalTimeTick(int gId) {
+        goalRepository.goalTimeTick(gId);
+    }
 }

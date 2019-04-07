@@ -73,6 +73,7 @@ public class MainActivity extends BaseActivity implements TaskListener {
         pieChart.setTouchEnabled(false);
 
         pieChart.setNoDataText("Nothing here yet. Maybe add some goals?");
+        pieChart.setNoDataTextColor(R.color.black);
         pieChart.setCenterText("YOUR GOALS");
 
         Description desc = new Description();

@@ -32,4 +32,10 @@ public interface GoalDao {
 
     @Query("UPDATE goal_table SET goal_done = goal_done + :goalDone WHERE goalId = :gId")
     int updateGoal(int gId, float goalDone);
+
+    @Query("UPDATE goal_table SET goal_done = :goalDoneTotal WHERE goalId = :gId")
+    int updateGoalTotal(int gId, float goalDoneTotal);
+
+    @Query("UPDATE goal_table SET goal_done = (goal_done + (1.0 / 3600.0)) WHERE goalId = :gId")
+    int goalTimeTick(int gId);
 }

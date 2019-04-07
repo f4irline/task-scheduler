@@ -46,7 +46,7 @@ public class GoalsActivity extends BaseActivity {
         RecyclerView goalsList = (RecyclerView) findViewById(R.id.goal_list);
         goalsList.setLayoutManager(new LinearLayoutManager(this));
 
-        final GoalsAdapter goalsAdapter = new GoalsAdapter(goals, viewModel);
+        final GoalsAdapter goalsAdapter = new GoalsAdapter(goals, viewModel, getApplicationContext());
         goalsList.setAdapter(goalsAdapter);
 
         viewModel.getAllGoals().observe(this, goals -> {

@@ -22,7 +22,6 @@ import com.github.f4irline.taskscheduler.TimerTools.TimerService;
 
 import java.util.List;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProviders;
@@ -40,7 +39,7 @@ public class HoursDialogFragment extends DialogFragment implements View.OnClickL
 
     private List<Goal> goalsList;
 
-    private int chosenItem;
+    public static int chosenItem;
 
     private int seconds = 0;
     private int minutes = 0;
@@ -190,6 +189,8 @@ public class HoursDialogFragment extends DialogFragment implements View.OnClickL
         }
 
         timerText.setText(hoursText+":"+minutesText+":"+secondsText);
+
+        viewModel.goalTimeTick(goalsList.get(chosenItem).goalId);
 
         Log.d("HoursDialogFragment", "Time Tick, seconds: "+seconds+", minutes: "+minutes+", hours: "+hours);
     }

@@ -47,6 +47,18 @@ public class GoalRepository {
         });
     }
 
+    public void updateGoalTotal (int gId, float goalDoneTotal) {
+        executor.execute(() -> {
+            mGoalDao.updateGoalTotal(gId, goalDoneTotal);
+        });
+    }
+
+    public void goalTimeTick (int gId) {
+        executor.execute(() -> {
+            mGoalDao.goalTimeTick(gId);
+        });
+    }
+
     private static class deleteAsyncTask extends AsyncTask<Goal, Void, Void> {
         private GoalDao mAsyncTaskDao;
 
