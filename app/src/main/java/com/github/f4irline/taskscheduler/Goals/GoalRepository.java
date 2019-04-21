@@ -7,7 +7,6 @@ import android.util.Log;
 import com.github.f4irline.taskscheduler.DatabaseImpl;
 
 import java.util.List;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 

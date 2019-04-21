@@ -7,7 +7,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.github.f4irline.taskscheduler.AppViewModel;
 import com.github.f4irline.taskscheduler.BaseActivity;
 import com.github.f4irline.taskscheduler.R;
 
@@ -16,7 +15,6 @@ import java.util.List;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 

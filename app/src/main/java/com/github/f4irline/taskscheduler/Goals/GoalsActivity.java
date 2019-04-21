@@ -10,20 +10,15 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.github.f4irline.taskscheduler.AppViewModel;
 import com.github.f4irline.taskscheduler.BaseActivity;
 import com.github.f4irline.taskscheduler.R;
 import com.github.f4irline.taskscheduler.Tasks.Task;
 
-import java.io.FileInputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
