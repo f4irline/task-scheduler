@@ -5,7 +5,10 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -28,6 +31,7 @@ public class GoalsAdapter extends RecyclerView.Adapter<GoalsAdapter.ViewHolder> 
         public TextView goalDone;
         public ImageButton removeButton;
         public ProgressBar goalProgress;
+        public LinearLayout goalWrapper;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -36,12 +40,14 @@ public class GoalsAdapter extends RecyclerView.Adapter<GoalsAdapter.ViewHolder> 
             goalDone = (TextView) itemView.findViewById(R.id.goal_done);
             removeButton = (ImageButton) itemView.findViewById(R.id.remove_goal);
             goalProgress = (ProgressBar) itemView.findViewById(R.id.goal_progress);
+            goalWrapper = (LinearLayout) itemView.findViewById(R.id.goal_item_wrapper);
         }
     }
 
     private List<Goal> goals;
     private AppViewModel viewModel;
     private Context appContext;
+    private Animation deleteAnimation;
 
     public GoalsAdapter(List<Goal> goals, AppViewModel viewModel, Context appContext) {
         this.goals = goals;
@@ -54,6 +60,7 @@ public class GoalsAdapter extends RecyclerView.Adapter<GoalsAdapter.ViewHolder> 
         Context context = viewGroup.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
+        deleteAnimation = AnimationUtils.loadAnimation(context, R.anim.scale);
         View scoresView = inflater.inflate(R.layout.item_goal, viewGroup, false);
         ViewHolder viewHolder = new ViewHolder(scoresView);
         return viewHolder;
@@ -78,7 +85,24 @@ public class GoalsAdapter extends RecyclerView.Adapter<GoalsAdapter.ViewHolder> 
                        Intent intent = new Intent(appContext, TimerService.class);
                        appContext.stopService(intent);
                    }
-                   viewModel.delete(goal);
+                   viewHolder.goalWrapper.startAnimation(deleteAnimation);
+                   deleteAnimation.setAnimationListener(new Animation.AnimationListener() {
+                       @Override
+                       public void onAnimationStart(Animation animation) {
+
+                       }
+
+                       @Override
+                       public void onAnimationEnd(Animation animation) {
+                           animation.setFillAfter(true);
+                           viewModel.delete(goal);
+                       }
+
+                       @Override
+                       public void onAnimationRepeat(Animation animation) {
+
+                       }
+                   });
                }
             });
         } else {
