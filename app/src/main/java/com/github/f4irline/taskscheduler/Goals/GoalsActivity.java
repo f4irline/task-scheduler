@@ -71,7 +71,7 @@ public class GoalsActivity extends BaseActivity {
         } else {
             Toast.makeText(
                     getApplicationContext(),
-                    "Empty field",
+                    "Time must be a number.",
                     Toast.LENGTH_LONG).show();
         }
     }
