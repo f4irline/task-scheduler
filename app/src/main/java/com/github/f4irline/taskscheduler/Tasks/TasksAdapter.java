@@ -75,6 +75,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
                         }
 
                         viewHolder.taskWrapper.startAnimation(deleteAnimation);
+                        goalExists.removeObserver(this);
                     }
                 });
 
