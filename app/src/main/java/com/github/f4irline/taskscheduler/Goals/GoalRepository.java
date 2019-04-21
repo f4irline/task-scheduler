@@ -63,6 +63,12 @@ public class GoalRepository {
         });
     }
 
+    public void deleteGoalByName(String goalName) {
+        executor.execute(() -> {
+            mGoalDao.deleteByName(goalName);
+        });
+    }
+
     private static class deleteAsyncTask extends AsyncTask<Goal, Void, Void> {
         private GoalDao mAsyncTaskDao;
 

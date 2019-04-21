@@ -45,6 +45,8 @@ public class AppViewModel extends AndroidViewModel {
 
     public void delete(Goal goal) { goalRepository.delete(goal); }
 
+    public void deleteGoalByName(String goalName) { goalRepository.deleteGoalByName(goalName); }
+
     public void update(int gId, float goalDone) {
         goalRepository.update(gId, goalDone);
     }

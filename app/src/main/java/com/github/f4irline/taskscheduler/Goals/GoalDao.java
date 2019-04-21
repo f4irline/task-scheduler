@@ -33,6 +33,9 @@ public interface GoalDao {
     @Delete
     void delete(Goal goal);
 
+    @Query("DELETE FROM goal_table WHERE goal = :goalName")
+    void deleteByName(String goalName);
+
     @Query("UPDATE goal_table SET goal_done = goal_done + :goalDone WHERE goalId = :gId")
     int updateGoal(int gId, float goalDone);
 

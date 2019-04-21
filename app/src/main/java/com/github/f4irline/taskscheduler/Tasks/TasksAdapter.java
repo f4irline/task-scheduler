@@ -16,6 +16,7 @@ import com.github.f4irline.taskscheduler.R;
 
 import java.util.List;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -65,7 +66,18 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
             final Task task = tasks.get(i);
             viewHolder.taskText.setText(task.task);
             viewHolder.removeButton.setOnClickListener(v -> {
-                viewHolder.taskWrapper.startAnimation(deleteAnimation);
+                final LiveData<Boolean> goalExists = viewModel.checkIfGoalExists(task.getTask());
+                goalExists.observe((AppCompatActivity) context, new Observer<Boolean>() {
+                    @Override
+                    public void onChanged(Boolean exists) {
+                        if (exists) {
+                            viewModel.deleteGoalByName(task.getTask());
+                        }
+
+                        viewHolder.taskWrapper.startAnimation(deleteAnimation);
+                    }
+                });
+
                 deleteAnimation.setAnimationListener(new Animation.AnimationListener() {
                     @Override
                     public void onAnimationStart(Animation animation) {
