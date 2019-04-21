@@ -78,12 +78,21 @@
         android:layout_marginRight="15dp"
         android:layout_marginTop="10dp"/>
 
+    <include
+        layout="@layout/goal_header"
+        android:layout_below="@+id/divider"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/goal_header_wrapper"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/goal_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/divider"
+        android:layout_below="@id/goal_header_wrapper"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="10dp"
