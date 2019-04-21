@@ -50,7 +50,6 @@ public class GoalsActivity extends BaseActivity {
         goalsList.setAdapter(goalsAdapter);
 
         viewModel.getAllGoals().observe(this, goals -> {
-            // Update the cached copy of the words in the adapter.
             goalsAdapter.setGoals(goals);
         });
 
@@ -81,7 +80,8 @@ public class GoalsActivity extends BaseActivity {
         EditText timeField = findViewById(R.id.timeText);
 
         Intent replyIntent = new Intent();
-        if (TextUtils.isEmpty(timeField.getText()) || TextUtils.isEmpty(goalsSpinner.getSelectedItem().toString())) {
+        if (TextUtils.isEmpty(timeField.getText()) || TextUtils.isEmpty(goalsSpinner.getSelectedItem().toString())
+            || !isValidNumber(timeField.getText().toString())) {
             onGoalAdd(NEW_GOAL_ACTIVITY_REQUEST_CODE, RESULT_CANCELED, replyIntent);
         } else {
             replyIntent.putExtra("time", Float.parseFloat(timeField.getText().toString()));
@@ -91,5 +91,15 @@ public class GoalsActivity extends BaseActivity {
         }
 
         timeField.setText("");
+    }
+
+    private boolean isValidNumber(String input) {
+        try {
+            Double.parseDouble(input);
+        } catch (NumberFormatException ex) {
+            return false;
+        }
+
+        return true;
     }
 }
