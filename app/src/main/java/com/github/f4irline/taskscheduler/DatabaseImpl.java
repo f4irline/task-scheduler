@@ -66,48 +66,4 @@ public abstract class DatabaseImpl extends RoomDatabase {
                     super.onOpen(db);
                 }
             };
-
-    /*private static class PopulateGoalDbAsync extends AsyncTask<Void, Void, Void> {
-
-        private final GoalDao mDao;
-
-        PopulateGoalDbAsync(DatabaseImpl db) {
-            mDao = db.goalDao();
-        }
-
-        @Override
-        protected Void doInBackground(final Void... params) {
-            mDao.deleteAll();
-            Goal goal = new Goal("Code", 20);
-            goal.setGoalDone(10);
-            mDao.insert(goal);
-            goal = new Goal("Read", 30);
-            goal.setGoalDone(10);
-            mDao.insert(goal);
-            goal = new Goal("Exercise", 20);
-            mDao.insert(goal);
-            return null;
-        }
-    }*/
-
-    /*private static class PopulateTaskDbAsync extends AsyncTask<Void, Void, Void> {
-
-        private final TaskDao mDao;
-
-        PopulateTaskDbAsync(DatabaseImpl db) {
-            mDao = db.taskDao();
-        }
-
-        @Override
-        protected Void doInBackground(final Void... params) {
-            mDao.deleteAll();
-            Task task = new Task("Code");
-            mDao.insert(task);
-            task = new Task("Read");
-            mDao.insert(task);
-            task = new Task("Exercise");
-            mDao.insert(task);
-            return null;
-        }
-    }*/
 }

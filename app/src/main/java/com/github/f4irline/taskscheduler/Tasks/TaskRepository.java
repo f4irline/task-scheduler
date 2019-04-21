@@ -23,6 +23,10 @@ public class TaskRepository {
         return allTasks;
     }
 
+    public LiveData<Boolean> checkIfTaskExists(String taskName) {
+        return mTaskDao.checkIfTaskExists(taskName);
+    }
+
     public void insert (Task word) {
         new TaskRepository.insertAsyncTask(mTaskDao).execute(word);
     }

@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.github.f4irline.taskscheduler.AppViewModel;
 import com.github.f4irline.taskscheduler.BaseActivity;
+import com.github.f4irline.taskscheduler.LiveDataUtils.LiveDataUtils;
 import com.github.f4irline.taskscheduler.R;
 import com.github.f4irline.taskscheduler.Tasks.Task;
 
@@ -67,7 +68,23 @@ public class GoalsActivity extends BaseActivity {
 
         if (requestCode == NEW_GOAL_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             Goal goal = new Goal(data.getStringExtra("goal"), data.getFloatExtra("time", 0));
-            viewModel.insert(goal);
+
+            final LiveData<Boolean> goalExists = viewModel.checkIfGoalExists(goal.getGoal());
+            goalExists.observe(this, new Observer<Boolean>() {
+                @Override
+                public void onChanged(@Nullable Boolean exists) {
+                    Log.d("onGoalAdd", String.valueOf(exists));
+                    if (!exists) {
+                        viewModel.insert(goal);
+                    } else {
+                        Toast.makeText(
+                                getApplicationContext(),
+                                "Goal with this task already exists.",
+                                Toast.LENGTH_LONG).show();
+                    }
+                    goalExists.removeObserver(this);
+                }
+            });
         } else {
             Toast.makeText(
                     getApplicationContext(),
@@ -75,6 +92,7 @@ public class GoalsActivity extends BaseActivity {
                     Toast.LENGTH_LONG).show();
         }
     }
+
 
     public void addGoal(View v) {
         EditText timeField = findViewById(R.id.timeText);

@@ -35,6 +35,10 @@ public class GoalRepository {
         });
     }
 
+    public LiveData<Boolean> checkIfGoalExists(String goalName) {
+        return mGoalDao.checkIfGoalExists(goalName);
+    }
+
     public void insert (Goal goal) {
         new insertAsyncTask(mGoalDao).execute(goal);
     }

@@ -29,11 +29,15 @@ public class AppViewModel extends AndroidViewModel {
 
     public LiveData<List<Task>> getAllTasks() { return allTasks; }
 
+    public LiveData<Boolean> checkIfTaskExists(String taskName) { return taskRepository.checkIfTaskExists(taskName); }
+
     public void insert(Task word) { taskRepository.insert(word); }
 
     public void delete(Task task) { taskRepository.delete(task); }
 
     public LiveData<List<Goal>> getAllGoals() { return allGoals; }
+
+    public LiveData<Boolean> checkIfGoalExists(String goalName) { return goalRepository.checkIfGoalExists(goalName); }
 
     public void getTotalGoalTime() { goalRepository.getTotalGoalTime(); }
 

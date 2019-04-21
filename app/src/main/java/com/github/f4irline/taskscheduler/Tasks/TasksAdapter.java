@@ -16,6 +16,8 @@ import com.github.f4irline.taskscheduler.R;
 
 import java.util.List;
 
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -38,6 +40,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
     private List<Task> tasks;
     private AppViewModel viewModel;
     private Animation deleteAnimation;
+    private Context context;
 
     public TasksAdapter(List<Task> tasks, AppViewModel viewModel) {
         this.tasks = tasks;
@@ -46,7 +49,7 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
 
     @Override
     public TasksAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        Context context = viewGroup.getContext();
+        context = viewGroup.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
         deleteAnimation = AnimationUtils.loadAnimation(context, R.anim.scale);
@@ -61,28 +64,25 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
         if (tasks != null) {
             final Task task = tasks.get(i);
             viewHolder.taskText.setText(task.task);
-            viewHolder.removeButton.setOnClickListener(new View.OnClickListener() {
-               @Override
-               public void onClick(View v) {
-                   viewHolder.taskWrapper.startAnimation(deleteAnimation);
-                   deleteAnimation.setAnimationListener(new Animation.AnimationListener() {
-                       @Override
-                       public void onAnimationStart(Animation animation) {
+            viewHolder.removeButton.setOnClickListener(v -> {
+                viewHolder.taskWrapper.startAnimation(deleteAnimation);
+                deleteAnimation.setAnimationListener(new Animation.AnimationListener() {
+                    @Override
+                    public void onAnimationStart(Animation animation) {
 
-                       }
+                    }
 
-                       @Override
-                       public void onAnimationEnd(Animation animation) {
-                           animation.setFillAfter(true);
-                           viewModel.delete(task);
-                       }
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        animation.setFillAfter(true);
+                        viewModel.delete(task);
+                    }
 
-                       @Override
-                       public void onAnimationRepeat(Animation animation) {
+                    @Override
+                    public void onAnimationRepeat(Animation animation) {
 
-                       }
-                   });
-               }
+                    }
+                });
             });
         } else {
             viewHolder.taskText.setText("No tasks yet");

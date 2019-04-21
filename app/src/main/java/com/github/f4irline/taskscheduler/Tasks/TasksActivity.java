@@ -14,6 +14,7 @@ import com.github.f4irline.taskscheduler.R;
 import java.util.List;
 
 import androidx.annotation.Nullable;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -51,7 +52,22 @@ public class TasksActivity extends BaseActivity {
 
         if (requestCode == NEW_TASK_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
             Task task = new Task(data.getStringExtra("task"));
-            viewModel.insert(task);
+
+            final LiveData<Boolean> taskExists = viewModel.checkIfTaskExists(task.getTask());
+            taskExists.observe(this, new Observer<Boolean>() {
+                @Override
+                public void onChanged(@Nullable Boolean exists) {
+                    if (!exists) {
+                        viewModel.insert(task);
+                    } else {
+                        Toast.makeText(
+                                getApplicationContext(),
+                                "Task with this name already exists.",
+                                Toast.LENGTH_LONG).show();
+                    }
+                    taskExists.removeObserver(this);
+                }
+            });
         } else {
             Toast.makeText(
                     getApplicationContext(),

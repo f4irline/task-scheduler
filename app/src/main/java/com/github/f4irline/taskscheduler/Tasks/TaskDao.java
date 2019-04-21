@@ -10,6 +10,9 @@ import androidx.room.Query;
 
 @Dao
 public interface TaskDao {
+    @Query("SELECT EXISTS(SELECT * from task_table WHERE LOWER(task) = LOWER(:taskName))")
+    LiveData<Boolean> checkIfTaskExists(String taskName);
+
     @Query("SELECT * FROM task_table")
     LiveData<List<Task>> getAllTasks();
 

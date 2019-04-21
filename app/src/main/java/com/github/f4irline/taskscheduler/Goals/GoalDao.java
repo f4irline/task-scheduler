@@ -12,6 +12,9 @@ import androidx.room.Update;
 @Dao
 public interface GoalDao {
 
+    @Query("SELECT EXISTS(SELECT * from goal_table WHERE goal = :goalName)")
+    LiveData<Boolean> checkIfGoalExists(String goalName);
+
     @Query("SELECT * FROM goal_table")
     LiveData<List<Goal>> getAllGoals();
 
