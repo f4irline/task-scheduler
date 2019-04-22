@@ -24,12 +24,35 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The starting point of the application. Acts as the dashboard for the user.
+ *
+ * <p>
+ * The MainActivity is the first activity user sees when the user opens the app. MainActivity
+ * holds a random fact fetched from an API using HTTP requests, progress bar which displays
+ * user's total progress on all his goals and a doghnut chart which displays how user has
+ * allocated his time to goals.
+ * </p>
+ *
+ * @author Tommi Lepola
+ * @version 3.0
+ * @since 2019.0323
+ */
 public class MainActivity extends BaseActivity implements TaskListener {
 
     public static boolean mainActive = true;
     private PieChart pieChart;
     private TextView randomFact;
 
+    /**
+     * Called when the activity is launched.
+     *
+     * <p>
+     * Initializes the main activity by calling methods that initialize the pie chart, the random
+     * fact and calculates progress for progress bar.
+     * </p>
+     * @param savedInstanceState activity's previously saved state.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +90,9 @@ public class MainActivity extends BaseActivity implements TaskListener {
         getRandomFact();
     }
 
+    /**
+     * Initializes the pie chart.
+     */
     private void initPieChart() {
         pieChart = findViewById(R.id.generalChart);
         pieChart.setTouchEnabled(false);
@@ -84,6 +110,9 @@ public class MainActivity extends BaseActivity implements TaskListener {
         pieChart.invalidate();
     }
 
+    /**
+     * Initializes the random fact part of the activity.
+     */
     private void getRandomFact() {
         randomFact = findViewById(R.id.randomFact);
         ConnectivityManager mgr = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -98,10 +127,21 @@ public class MainActivity extends BaseActivity implements TaskListener {
         }
     }
 
+    /**
+     * Uses HttpFetch class to fetch the random fact.
+     *
+     * @param url the url where the fact is fetched from.
+     * @throws MalformedURLException if URL is malformed like incorrect protocol or such.
+     */
     private void fetchFact(String url) throws MalformedURLException {
         new HttpFetch(this).execute(new URL(url));
     }
 
+    /**
+     * Parses the random fact from the http get request after the request is done.
+     *
+     * @param result the response from the http get request.
+     */
     @Override
     public void onTaskCompleted(String result) {
         Gson gson = new Gson();

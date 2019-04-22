@@ -9,6 +9,13 @@ import android.util.Log;
 
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+/**
+ * The service which is used to update goal's done time every second when user starts the timer.
+ *
+ * @author Tommi Lepola
+ * @version 3.0
+ * @since 2019.0406
+ */
 public class TimerService extends Service implements Runnable {
     public static boolean isRunning;
     private Thread thread;
@@ -19,11 +26,22 @@ public class TimerService extends Service implements Runnable {
     private SharedPreferences sharedPref;
     private SharedPreferences.Editor editor;
 
+    /**
+     * Return's the communication channel to the service. Returns null, since we're not binding
+     * to the service.
+     *
+     * @param arg0 the intent which was used to bind to this service.
+     * @return null, since we're not binding to the service.
+     */
     @Override
     public IBinder onBind(Intent arg0) {
         return null;
     }
 
+    /**
+     * Called when the service is destroyed (stopped). Updates the seconds, minutes and hours
+     * to the sharedPreferences back to 0, since we don't need them anymore.
+     */
     @Override
     public void onDestroy() {
         Log.d("TimerService", "onDestroy");
@@ -35,6 +53,15 @@ public class TimerService extends Service implements Runnable {
         isRunning = false;
     }
 
+    /**
+     * Called when a client starts the service.
+     *
+     * @param intent the intent supplied.
+     * @param flags data about the start request.
+     * @param startId unique integer representing the start request.
+     * @return START_STICKY which tells the system to recreate the service if the system kills
+     * the service when running out of memory.
+     */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (!isRunning) {
@@ -43,6 +70,18 @@ public class TimerService extends Service implements Runnable {
         return START_STICKY;
     }
 
+    /**
+     * Called when the service is created the first time.
+     *
+     * <p>
+     * Initializes the shared preference which is used to temporarily save the seconds,
+     * minutes and hours this service has been running.
+     * </p>
+     *
+     * <p>
+     * Also initializes the new Thread which is running when the service starts.
+     * </p>
+     */
     @Override
     public void onCreate() {
         isRunning = false;
@@ -53,6 +92,14 @@ public class TimerService extends Service implements Runnable {
         thread = new Thread(this);
     }
 
+    /**
+     * Starts the thread.
+     *
+     * <p>
+     * Runs as long as the service is kept running. Sends a local broadcast every second, which
+     * is then received by a receiver implementation.
+     * </p>
+     */
     @Override
     public void run() {
         isRunning = true;
@@ -72,6 +119,10 @@ public class TimerService extends Service implements Runnable {
         }
     }
 
+    /**
+     * Calculates time to the stored local variables and adds them also to the sharedPreferences
+     * which can later be used.
+     */
     private void calculateTime() {
         seconds++;
         if (seconds % 60 == 0) {

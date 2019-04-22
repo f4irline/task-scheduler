@@ -27,6 +27,13 @@ import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
+/**
+ * The dialog fragment which user operates when adding hours to goals.
+ *
+ * @author Tommi Lepola
+ * @version 3.0
+ * @since 2019.0404
+ */
 public class HoursDialogFragment extends DialogFragment implements View.OnClickListener, AdapterView.OnItemSelectedListener, TimerReceiverCallback {
     private AppViewModel viewModel;
 
@@ -45,6 +52,15 @@ public class HoursDialogFragment extends DialogFragment implements View.OnClickL
     private int minutes = 0;
     private int hours = 0;
 
+    /**
+     * Called when the dialog is created.
+     *
+     * <p>
+     * Initializes the dialog fragment.
+     * </p>
+     * @param savedInstanceState previously saved state of the dialog.
+     * @return the created builder which is then used to show the dialog.
+     */
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         viewModel = ViewModelProviders.of(this).get(AppViewModel.class);
@@ -99,6 +115,11 @@ public class HoursDialogFragment extends DialogFragment implements View.OnClickL
         return builder.create();
     }
 
+    /**
+     * Called when a button is clicked.
+     *
+     * @param v reference to the button which was clicked.
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -113,6 +134,9 @@ public class HoursDialogFragment extends DialogFragment implements View.OnClickL
         }
     }
 
+    /**
+     * Saves the user's input for hours done for a goal.
+     */
     private void saveGoalProgress() {
         if (TextUtils.isEmpty(timeField.getText())) {
             Toast.makeText(
@@ -126,6 +150,9 @@ public class HoursDialogFragment extends DialogFragment implements View.OnClickL
         }
     }
 
+    /**
+     * Calls a method to start or stop the timer service.
+     */
     private void timerControl() {
         if (TimerService.isRunning) {
             stopTimer();
@@ -134,28 +161,56 @@ public class HoursDialogFragment extends DialogFragment implements View.OnClickL
         }
     }
 
+    /**
+     * Starts the timer service.
+     */
     private void startTimer() {
         timerButton.setText("Stop timer");
         Intent intent = new Intent(this.getActivity().getApplicationContext(), TimerService.class);
         this.getContext().startService(intent);
     }
 
+    /**
+     * Stops the timer service.
+     */
     private void stopTimer() {
         timerButton.setText("Start timer");
         Intent intent = new Intent(this.getActivity().getApplicationContext(), TimerService.class);
         this.getContext().stopService(intent);
     }
 
+    /**
+     * Saves the index of the chosen item on the dropdown list to a variable.
+     *
+     * @param parent the AdapterView where the selection happened.
+     * @param view the view within the AdapterView which was clicked.
+     * @param position the index of the clicked view in the AdapterView.
+     * @param id the row id of the item that was selected.
+     */
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         chosenItem = position;
     }
 
+    /**
+     * Called when the AdapterView is initialized, selects the first item in the list.
+     *
+     * @param parent the AdapterView where the selection happened.
+     */
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
         chosenItem = 0;
     }
 
+    /**
+     * Callback function which is called on every time tick of the timer receiver.
+     *
+     * <p>
+     * Updates the current time to the DialogFragment timerText TextField.
+     * </p>
+     *
+     * @param intent the intent which called the callback.
+     */
     @Override
     public void onTimeReceived(Intent intent) {
         Bundle extras = intent.getExtras();

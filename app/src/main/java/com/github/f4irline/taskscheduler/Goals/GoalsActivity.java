@@ -22,6 +22,17 @@ import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+/**
+ * The goals activity.
+ *
+ * <p>
+ * Holds controls to add and delete goals. Also holds a list of all goals user has added.
+ * </p>
+ *
+ * @author Tommi Lepola
+ * @version 3.0
+ * @since 2019.0323
+ */
 public class GoalsActivity extends BaseActivity {
 
     public static boolean goalsActive = false;
@@ -31,6 +42,15 @@ public class GoalsActivity extends BaseActivity {
 
     private Spinner goalsSpinner;
 
+    /**
+     * Called when the activity is created.
+     *
+     * <p>
+     * Initializes the list of the goals and observes changes.
+     * </p>
+     *
+     * @param savedInstanceState the previously saved state of the activity.
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +77,13 @@ public class GoalsActivity extends BaseActivity {
         goalsActive = true;
     }
 
+    /**
+     * Handles adding a new goal.
+     *
+     * @param requestCode the request code reference to the add action.
+     * @param resultCode the implication if the add task is OK to be executed.
+     * @param data the data in a intent.
+     */
     public void onGoalAdd(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
@@ -87,7 +114,21 @@ public class GoalsActivity extends BaseActivity {
         }
     }
 
-
+    /**
+     * Called when user clicks add for a goal.
+     *
+     * <p>
+     * Validates that the goal time field is not empty, then creates new intent which holds the
+     * name of the goal and the time and calls the goal add method to finalize the insert of a new goal.
+     * </p>
+     *
+     * <p>
+     * If the goal time field is empty, then the onTaskAdd method is called with RESULT_CANCELED
+     * value, and user is told that there is an empty field which needs to be filled.
+     * </p>
+     *
+     * @param v the add button which is clicked.
+     */
     public void addGoal(View v) {
         EditText timeField = findViewById(R.id.timeText);
 
@@ -105,6 +146,12 @@ public class GoalsActivity extends BaseActivity {
         timeField.setText("");
     }
 
+    /**
+     * Used to check that user has given a valid time value to the time text field.
+     *
+     * @param input the user's input
+     * @return false if the input is not valid, true if it is.
+     */
     private boolean isValidNumber(String input) {
         try {
             Double.parseDouble(input);

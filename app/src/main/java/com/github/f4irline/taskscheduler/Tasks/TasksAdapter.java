@@ -20,8 +20,22 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.recyclerview.widget.RecyclerView;
 
+/**
+ * The adapter which manages the task list in the TasksActivity.
+ *
+ * @author Tommi Lepola
+ * @version 3.0
+ * @since 2019.0323
+ */
 public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> {
 
+    /**
+     * Describes an item view and metadata about it's place in the RecyclerView.
+     *
+     * @author Tommi Lepola
+     * @version 3.0
+     * @since 2019.0323
+     */
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         public TextView taskText;
@@ -41,27 +55,49 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
     private Animation deleteAnimation;
     private Context context;
 
+    /**
+     * Constructor for the adapter. Initializes the tasks that currently exist
+     * and the viewModel which is used to manage the database.
+     *
+     * @param tasks list of the tasks that currently already exist.
+     * @param viewModel the viewModel implementation which is used to manage the database.
+     */
     public TasksAdapter(List<Task> tasks, AppViewModel viewModel) {
         this.tasks = tasks;
         this.viewModel = viewModel;
     }
 
+    /**
+     * Called when the RecyclerView needs a new ViewHolder of the given type to represent
+     * an item.
+     *
+     * @param viewGroup the ViewGroup into which the new view will be added.
+     * @param viewType the type of the new view.
+     * @return a new ViewHolder which holds a View of the given view type.
+     */
     @Override
-    public TasksAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public TasksAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         context = viewGroup.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
 
         deleteAnimation = AnimationUtils.loadAnimation(context, R.anim.scale);
-        View scoresView = inflater.inflate(R.layout.item_task, viewGroup, false);
-        ViewHolder viewHolder = new ViewHolder(scoresView);
+        View tasksView = inflater.inflate(R.layout.item_task, viewGroup, false);
+        ViewHolder viewHolder = new ViewHolder(tasksView);
 
         return viewHolder;
     }
 
+    /**
+     * Called by the RecyclerView to display the data at the specified position.
+     *
+     * @param viewHolder the ViewHolder which should be updated to represent the contents of the item
+     *                   at the given position in the data set.
+     * @param position the position of the item in the Adapter's data set.
+     */
     @Override
-    public void onBindViewHolder(TasksAdapter.ViewHolder viewHolder, int i) {
+    public void onBindViewHolder(TasksAdapter.ViewHolder viewHolder, int position) {
         if (tasks != null) {
-            final Task task = tasks.get(i);
+            final Task task = tasks.get(position);
             viewHolder.taskText.setText(task.task);
             viewHolder.removeButton.setOnClickListener(v -> {
                 final LiveData<Boolean> goalExists = viewModel.checkIfGoalExists(task.getTask());
@@ -101,11 +137,22 @@ public class TasksAdapter extends RecyclerView.Adapter<TasksAdapter.ViewHolder> 
 
     }
 
-    void setTasks(List<Task> words){
-        tasks = words;
+    /**
+     * Sets given tasks to the tasks list and notifies any registered observers that
+     * the data set has changed.
+     *
+     * @param tasks the tasks that exist when this function is called.
+     */
+    void setTasks(List<Task> tasks){
+        this.tasks = tasks;
         notifyDataSetChanged();
     }
 
+    /**
+     * Returns the number of tasks currently in the list.
+     *
+     * @return the number of tasks currently in the list.
+     */
     @Override
     public int getItemCount() {
         if (tasks != null) {
