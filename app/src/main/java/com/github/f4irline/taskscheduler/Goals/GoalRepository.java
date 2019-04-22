@@ -88,6 +88,7 @@ public class GoalRepository {
      */
     public void update (int gId, float goalDone) {
         executor.execute(() -> {
+            mGoalDao.updateGoal(gId, goalDone);
         });
     }
 
