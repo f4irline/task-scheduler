@@ -44,7 +44,6 @@ public class TimerService extends Service implements Runnable {
      */
     @Override
     public void onDestroy() {
-        Log.d("TimerService", "onDestroy");
         editor = sharedPref.edit();
         editor.putInt("seconds", 0);
         editor.putInt("minutes", 0);
@@ -105,7 +104,6 @@ public class TimerService extends Service implements Runnable {
         isRunning = true;
         while (isRunning) {
             try {
-                Log.d("TimerService", "Tick");
                 Intent intent = new Intent("android.intent.action.TIME_TICK");
                 intent.putExtra("seconds", seconds);
                 intent.putExtra("minutes", minutes);

@@ -58,8 +58,6 @@ public class HttpFetch extends AsyncTask<URL, Void, String> {
         StringBuilder result = new StringBuilder();
         InputStream in = null;
 
-        Log.d("doInBackground", params[0].toString());
-
         try {
             URL url = params[0];
             connection = (HttpURLConnection) url.openConnection();

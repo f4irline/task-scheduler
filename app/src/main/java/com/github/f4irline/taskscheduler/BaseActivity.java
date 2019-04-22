@@ -217,7 +217,6 @@ public class BaseActivity extends AppCompatActivity {
      * @param v the floating action button which was clicked.
      */
     public void floatingButtonClickedHandler(View v) {
-        Log.d("floatingButtonClickedHandler", "Click");
         HoursDialogFragment dialog = new HoursDialogFragment();
         dialog.show(getSupportFragmentManager(), "goals");
     }

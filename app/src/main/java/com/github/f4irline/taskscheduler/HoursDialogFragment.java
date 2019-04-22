@@ -145,7 +145,6 @@ public class HoursDialogFragment extends DialogFragment implements View.OnClickL
                     Toast.LENGTH_LONG).show();
         } else {
             viewModel.update(goalsList.get(chosenItem).goalId, Float.parseFloat(timeField.getText().toString()));
-            Log.d("onClick", "Goal ID: "+goalsList.get(chosenItem).goalId+", Goal: "+goalsList.get(chosenItem).goal+", Time: "+timeField.getText());
             this.dismiss();
         }
     }
@@ -246,7 +245,5 @@ public class HoursDialogFragment extends DialogFragment implements View.OnClickL
         timerText.setText(hoursText+":"+minutesText+":"+secondsText);
 
         viewModel.goalTimeTick(goalsList.get(chosenItem).goalId);
-
-        Log.d("HoursDialogFragment", "Time Tick, seconds: "+seconds+", minutes: "+minutes+", hours: "+hours);
     }
 }

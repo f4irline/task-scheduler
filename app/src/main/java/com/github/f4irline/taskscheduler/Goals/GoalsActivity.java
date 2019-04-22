@@ -94,7 +94,6 @@ public class GoalsActivity extends BaseActivity {
             goalExists.observe(this, new Observer<Boolean>() {
                 @Override
                 public void onChanged(@Nullable Boolean exists) {
-                    Log.d("onGoalAdd", String.valueOf(exists));
                     if (!exists) {
                         viewModel.insert(goal);
                     } else {
